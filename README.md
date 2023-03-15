@@ -35,12 +35,12 @@ git credential-osxkeychain erase
 
 See: https://docs.github.com/en/get-started/getting-started-with-git/updating-credentials-from-the-macos-keychain
 
+If you're running into issues, make sure you aren't using a repo that was originally 
+configured for SSH, and you are now attempting to use the same repo with Git 
+Credential Manager - this will be significantly more complex to configure.
+
 
 ## A Walking Skeleton
-If you're running into issues, make sure you aren't using a repo that was originally 
-configured for SSH, and you are now attempting to use the same repo with Git Credential 
-Manager - this will be significantly more complex to configure.
-
 A Walking Skeleton is a tiny implementation of the system that performs a small 
 end-to-end function. It need not use the final architecture, but it should link 
 together the main architectural components.
@@ -127,3 +127,131 @@ area (it should automagically show up).
 
 Optionally: Under Preferences > Settings, search for "compact", and turn off
 "Explorer: Compact Folders".
+
+Open the **Command Palette** (SHIFT + CMD + P) and type ".net", and click on:
+".NET: Generate Assets for Build and Debug". This will create the `.vscode` directory
+and the configuration files: `launch.json` and `tasks.json`.
+
+## Running Project for the First Time
+Toggle the **Terminal** (CTRL + Backtick), change directory to `API/` and then run:
+```shell
+dotnet run
+```
+
+On MacOS, you will probably be prompted with a Keychain request and will require your
+password. Here's the output from the Terminal for reference:
+```
+Building...
+warn: Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer[5]
+      The application is trying to access the ASP.NET Core developer certificate key. 
+      A prompt might appear to ask for permission to access the key. When that happens, 
+      select 'Always Allow' to grant 'dotnet' access to the certificate key in the future.
+```
+
+If you try to open the URL specified in your `Properties/launchSettings.json` file, like
+https://localhost:7183/ -- you're not gonna see anything interesting right now, since our
+"API" controller doesn't have any associated UI and it's just listening for API endpoints; 
+you'll see something like this in your Browser:
+```
+This localhost page can’t be found
+No webpage was found for the web address: https://localhost:7183/
+HTTP ERROR 404
+```
+
+Examine the `WeatherForecastController.cs` (after modifications to the codebase, this file 
+will no longer exist), and look at the `[Route]` property -- the String, `"Controller"` gets
+removed from the class name, to build the URL for the endpoint. So the active URL for the
+project at this point in time is actually:  
+
+https://localhost:5001/WeatherForecast  
+
+When you view this URL, the browser should show the JSON contents of an
+`IEnumerable<WeatherForecast>` like this:
+```js
+[{
+    "date": "2023-03-16T17:54:14.96377-04:00",
+    "temperatureC": 12,
+    "temperatureF": 53,
+    "summary": "Cool"
+}, {
+    "date": "2023-03-20T17:54:14.96394-04:00",
+    "temperatureC": 39,
+    "temperatureF": 102,
+    "summary": "Chilly"
+}]
+```
+
+Let's shut it down (CTRL + C) and then inspect the Help for dotnet: `dotnet run -h`.  
+
+Based on the help docs, we can specify which launch profile we want to use, with a command
+like: `dotnet run -lp "API"`. Note: You may run into a developer certificate issue, which
+will be described in the **Terminal**; it should provide some suggested remediation steps, 
+such as running `dotnet dev-certs https --clean`, which may require elevated privileges in
+the Windows operating environment.  
+
+In the `launchSettings.json` file, let's change the localhost ports within the `"applicationUrl"` 
+element to 5001 and 5000, something like this:
+```
+"applicationUrl": "https://localhost:5001;http://localhost:5000"
+```
+
+Swagger won't be used for this project, so you can remove the `"launchUrl": "swagger"` entry. 
+If you want to see a demonstration of it, you can add this property back, for reference:
+```js
+"profiles": {
+  "API": {
+    "commandName": "Project",
+    "dotnetRunMessages": true,
+    "launchBrowser": true,
+    "launchUrl": "swagger",
+    "applicationUrl": "https://localhost:5001;http://localhost:5000",
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  },
+```
+
+And then navigate to: https://localhost:5001/swagger/index.html to see the automagically 
+generated API documentation for the project. We're gonna be using a different tool to test 
+our application.  
+
+Inside our `API.csproj` file, it lists packages that we have installed. Let's get rid of
+this `<ItemGroup>` element and its child entries, to simplify things:
+```xml
+<ItemGroup>
+  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+</ItemGroup>
+```
+
+After installing or uninstalling packages, you need to then run: `dotnet restore`. This
+will result in some Project Errors we will fix now. Open `appsettings.Development.json` and
+let's bump the AspNetCore level to `"Information"`:
+```js
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Information"
+    }
+  }
+}
+```
+
+Open the `Program.cs` file, and clean up the services container to look like this:
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+app.MapControllers();
+
+app.Run();
+```
+
+Now let's run `dotnet watch run`. You should see a message like: `Hot reload enabled`. This feature 
+to "Hot Reload" and re-deploy changes as you make them in the Editor can be finicky (sometimes it 
+causes more problems than it solves).
