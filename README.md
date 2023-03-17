@@ -114,16 +114,17 @@ settings:
 3. Omnisharp: Organize Imports On Format
 
 Click the checkboxes to enable all of these settings. You should get a Visual Studio
-Code notification prompting you to "Restart OmniSharp", go ahead and accept that to
+Code notification prompting you to **Restart OmniSharp**, go ahead and accept that to
 restart the Extension.
 
 You can "Toggle Terminal" with CTRL + Backtick (aka, Grave Accent; the key to the 
 left of the "1" on your keyboard numbers row).
 
-Back in the Extensions area, search for "C# Extensions", and install the Extension 
-maintained by JosKreativ. And, install "Material Icon Theme" by Philipp Kief (after) 
+Back in the Extensions area, search for **C# Extensions**, and install the Extension 
+maintained by **JosKreativ**. And, install **Material Icon Theme** by Philipp Kief (after) 
 this is installed, you need to click on "Material Icon Theme" in the Command Palette 
-area (it should automagically show up).
+area (it should automagically show up). You might need to click on **Set File Icon Theme**,
+depending on your operating environment.
 
 Optionally: Under Preferences > Settings, search for "compact", and turn off
 "Explorer: Compact Folders".
