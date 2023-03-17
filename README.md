@@ -161,9 +161,10 @@ HTTP ERROR 404
 
 Examine the `WeatherForecastController.cs` (after modifications to the codebase, this file 
 will no longer exist), and look at the `[Route]` property -- the String, `"Controller"` gets
-removed from the class name, to build the URL for the endpoint. So the active URL for the
-project at this point in time is actually:  
+removed from the class name, to build the URL for the endpoint.
 
+### API URL in Browser
+So the active URL for the project at this point in time is actually:  
 https://localhost:5001/WeatherForecast  
 
 When you view this URL, the browser should show the JSON contents of an
@@ -281,3 +282,66 @@ our `AppUser.cs`, and then press RETURN to open the file. Super-handy to have!
 
 More details:
 https://stackoverflow.com/questions/29613191/intellij-shift-shift-shortcut-in-visual-studio-global-search
+
+## Entity Frameworks
+
+What is it? An Object Relational Mapper (ORM), which translates our code into SQL commands that
+update our tables in the database. Prior to .NET 3.5, we often used to write ADO.NET code to
+save or retrieve data from underlying database. It was a cumbersome and error-prone process.
+
+Entity Framework automates a lot of these database-related activities for our application.
+When we introduce our Entity Framework, we need to create an important class that derives from
+the `DbContext` class. This acts as a bridge between our domain and the database. This will
+enable us to use LINQ (Link) queries.
+
+Entity Framework works with database providers. The one we're going to use purely for development
+is SQLite, which does require a database server -- it's not production-worthy, but it is
+lightweight and portable, suitable for development (and something like SQL Server is not
+cross-platform).
+
+Entity framework enables querying the database with **LINQ**, and it supports **Change Tracking**
+of entities, and allows us to **Save** our database. It also gives us optimistic **Concurrency**
+to protect overwriting changes from another user, and database **Transactions**. And it supports
+**Caching** and built-in **Conventions** (which govern how the model will be mapped to a database
+schema), and **Configurations** for entities. It also offers us **Migrations**, to make our
+database management more robust.
+
+### Installing Nuget
+
+Under Extensions, search for and install "NuGet Gallery" by pcislo.
+
+Then, open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet" and click on the
+option that reads "NuGet: Open NuGet Gallery".
+
+Look for "Microsoft.EntityFrameworkCore" by Microsoft, and scroll down to the `.Sqlite.Core`
+package. Select the version of .NET you are using, you can run `dotnet --version` in the 
+**Terminal**, and install the SQLite Core entity framework in the `API.csproj` file.
+
+If you look at the `API.csproj` file, we should see a new entry like this:
+```xml
+<ItemGroup>
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.4" />
+</ItemGroup>
+```
+
+Back in the NuGet Gallery, look for "Microsoft.EntityFrameworkCore.Design" by Microsoft, and
+install that also (using the same dotnet version). Then, the CS Project file should look like this:
+```xml
+<ItemGroup>
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>all</PrivateAssets>
+  </PackageReference>
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.4" />
+</ItemGroup>
+```
+
+### Oops! Something isn't right...
+We installed the wrong SQLite framework -- we wanted simply `Sqlite` instead of `Sqlite.Core`... 😩
+Delete the `<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.4" />`
+package reference, then go back to NuGet Gallery and install:
+```
+Microsoft.EntityFrameworkCore.Sqlite by Microsoft
+```
+
+Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. 🤟
