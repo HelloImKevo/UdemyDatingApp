@@ -258,11 +258,16 @@ Now let's run `dotnet watch run`. You should see a message like: `Hot reload ena
 to "Hot Reload" and re-deploy changes as you make them in the Editor can be finicky (sometimes it 
 causes more problems than it solves).
 
-### Further Visual Studio Code Enhancements
+### Further Visual Studio Code Tips and Tricks
 
 Open Settings, search for "exclude", under "Files: Exclude", click on **Add Pattern**. Type
 `**/bin` and click **OK**. And do the same for `**/obj`. This will hide these folders from the
 Solution Explorer, since we won't interact with them very often.
+
+Open the **Command Palette** with: `SHIFT + CMD + P` (MacOS).
+
+Open the editor's **More Actions...** contextual menu with `CMD + .` (MacOS); this will provide 
+you with helpful quick actions like "Remove unnecessary usings", or "Generate constructor".
 
 Open the **Keyboard Shortcuts** window under Settings, then click on the small icon in the
 top-right corner with tooltip "Open Keyboard Shortcuts (JSON)" (the icon looks like a piece
@@ -345,3 +350,11 @@ Microsoft.EntityFrameworkCore.Sqlite by Microsoft
 ```
 
 Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. 🤟
+
+### Entity Framework DbContext
+
+From the docs:
+
+> A DbContext instance represents a session with the database and can be used to query 
+> and save instances of your entities. DbContext is a combination of the Unit Of Work and 
+> Repository patterns.
