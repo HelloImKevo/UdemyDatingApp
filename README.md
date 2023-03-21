@@ -163,9 +163,13 @@ settings:
 2. Omnisharp: Enable Import Completion
 3. Omnisharp: Organize Imports On Format
 
-Click the checkboxes to enable all of these settings. You should get a Visual Studio
-Code notification prompting you to **Restart OmniSharp**, go ahead and accept that to
-restart the Extension.
+Click the checkboxes to enable all of these settings.
+
+Look for "Private Member Prefix" and input `_` (underscore) and turn off the 
+"Use This For Ctor Assignments" checkbox.
+
+You should get a Visual Studio Code notification prompting you to **Restart OmniSharp**, 
+go ahead and accept that to restart the Extension.
 
 You can "Toggle Terminal" with CTRL + Backtick (aka, Grave Accent; the key to the 
 left of the "1" on your keyboard numbers row).
@@ -453,3 +457,51 @@ option. If you click the "Run" arrow next to the Users table, you should see out
 |  3 | Jane     |
 +----+----------+
 ```
+
+## Troubleshooting Dotnet Runtime
+
+If you encounter this error:
+```
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
+```
+
+You can try running:
+```
+lsof -i:5001
+```
+
+Example output:
+```
+Google    36572 john   70u  IPv6 0x1223c1a0ae0e2ced  0t0  TCP localhost:60565->localhost:commplex-link (ESTABLISHED)
+API       96825 john  244u  IPv4 0x1223c1aa43f9eee5  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  245u  IPv6 0x1223c1a0ae0e3bed  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  256u  IPv6 0x1223c1a0ae0c436d  0t0  TCP localhost:commplex-link->localhost:60565 (ESTABLISHED)
+```
+
+Then run `kill -9 <pid>` to manually kill the leftover "API" processes. In the above example, it 
+should be: `kill -9 96825`.
+
+Then run `dotnet watch run` or `dotnet run`, then navigate to:  
+https://localhost:5001/api/users
+
+You should see this output in the Browser UI:
+```json
+[{
+  "id": 1,
+  "userName": "Bob"
+}, {
+  "id": 2,
+  "userName": "Tom"
+}, {
+  "id": 3,
+  "userName": "Jane"
+}]
+```
+
+For API testing, it's more efficient to use Postman. Go ahead and create a new Postman Workspace 
+named "UdemyDatingApp", and add a Collection called "Users", and add a Request called "Get Users".  
+
+Set the request URL to: https://localhost:5001/api/users  
+
+If you get an error like "Could not get response -- SSL Error: Unable to verify the first certificate",
+go to Settings (Preferences) and turn off "SSL Certificate Verification".
