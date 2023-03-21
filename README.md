@@ -14,6 +14,17 @@ https://nodejs.org/en/
 
 You can use version 18.15.0 LTS  
 
+### NuGet: Dotnet Entity Framework
+
+https://www.nuget.org/packages/dotnet-ef/  
+
+Run:
+```shell
+dotnet tool install --global dotnet-ef --version 7.0.4
+```
+
+## The Fundamentals
+
 Configure your Git Access. I recommend using Git Credential Manager Core:
 https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md
 
@@ -38,6 +49,45 @@ See: https://docs.github.com/en/get-started/getting-started-with-git/updating-cr
 If you're running into issues, make sure you aren't using a repo that was originally 
 configured for SSH, and you are now attempting to use the same repo with Git 
 Credential Manager - this will be significantly more complex to configure.
+
+# Helpful Quick References
+
+## Visual Studio Code Tips and Tricks
+
+Open Settings, search for "exclude", under "Files: Exclude", click on **Add Pattern**. Type
+`**/bin` and click **OK**. And do the same for `**/obj`. This will hide these folders from the
+Solution Explorer, since we won't interact with them very often.
+
+Open the **Command Palette** with: `SHIFT + CMD + P` (MacOS).
+
+Open the editor's **More Actions...** contextual menu with `CMD + .` (MacOS); this will provide 
+you with helpful quick actions like "Remove unnecessary usings", or "Generate constructor".
+
+Open the **Keyboard Shortcuts** window under Settings, then click on the small icon in the
+top-right corner with tooltip "Open Keyboard Shortcuts (JSON)" (the icon looks like a piece
+of paper with a folded corner, and a circular arrow on the left). In the `keybindings.json`
+file, add this entry:
+
+```json
+{
+    "key": "shift shift",
+    "command": "workbench.action.quickOpen"
+}
+```
+
+Save the `keybindings.json` file and then close it. Now, when you double-tap SHIFT, it will open
+up a sort of "Global Object Search" form field, and you can type the name of an entity, like
+our `AppUser.cs`, and then press RETURN to open the file. Super-handy to have!
+
+More details:
+https://stackoverflow.com/questions/29613191/intellij-shift-shift-shortcut-in-visual-studio-global-search
+
+## Dotnet Commands
+
+List currently installed tools:
+```shell
+dotnet tool list -g
+```
 
 
 ## A Walking Skeleton
@@ -258,36 +308,6 @@ Now let's run `dotnet watch run`. You should see a message like: `Hot reload ena
 to "Hot Reload" and re-deploy changes as you make them in the Editor can be finicky (sometimes it 
 causes more problems than it solves).
 
-### Further Visual Studio Code Tips and Tricks
-
-Open Settings, search for "exclude", under "Files: Exclude", click on **Add Pattern**. Type
-`**/bin` and click **OK**. And do the same for `**/obj`. This will hide these folders from the
-Solution Explorer, since we won't interact with them very often.
-
-Open the **Command Palette** with: `SHIFT + CMD + P` (MacOS).
-
-Open the editor's **More Actions...** contextual menu with `CMD + .` (MacOS); this will provide 
-you with helpful quick actions like "Remove unnecessary usings", or "Generate constructor".
-
-Open the **Keyboard Shortcuts** window under Settings, then click on the small icon in the
-top-right corner with tooltip "Open Keyboard Shortcuts (JSON)" (the icon looks like a piece
-of paper with a folded corner, and a circular arrow on the left). In the `keybindings.json`
-file, add this entry:
-
-```json
-{
-    "key": "shift shift",
-    "command": "workbench.action.quickOpen"
-}
-```
-
-Save the `keybindings.json` file and then close it. Now, when you double-tap SHIFT, it will open
-up a sort of "Global Object Search" form field, and you can type the name of an entity, like
-our `AppUser.cs`, and then press RETURN to open the file. Super-handy to have!
-
-More details:
-https://stackoverflow.com/questions/29613191/intellij-shift-shift-shortcut-in-visual-studio-global-search
-
 ## Entity Frameworks
 
 What is it? An Object Relational Mapper (ORM), which translates our code into SQL commands that
@@ -358,3 +378,12 @@ From the docs:
 > A DbContext instance represents a session with the database and can be used to query 
 > and save instances of your entities. DbContext is a combination of the Unit Of Work and 
 > Repository patterns.
+
+Run:
+```shell
+dotnet ef migrations add InitialCreate -o Data/Migrations
+
+Build started...
+Build succeeded.
+Done. To undo this action, use 'ef migrations remove'
+```
