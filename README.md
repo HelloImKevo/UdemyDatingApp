@@ -382,8 +382,74 @@ From the docs:
 Run:
 ```shell
 dotnet ef migrations add InitialCreate -o Data/Migrations
+```
 
+Output:
+```shell
 Build started...
 Build succeeded.
 Done. To undo this action, use 'ef migrations remove'
+```
+
+Then run:
+```shell
+dotnet ef database update
+```
+
+Output snippets:
+```shell
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "__EFMigrationsHistory" (
+          "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+          "ProductVersion" TEXT NOT NULL
+      );
+
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Users" (
+          "Id" INTEGER NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY AUTOINCREMENT,
+          "UserName" TEXT NULL
+      );
+```
+
+### Installing a SQLite Browser Extension
+
+Open the Extensions tool window, search for **SQLite**, and install the Extension 
+maintained by **alexcvzz**.
+
+Then, open the **Command Palette** (SHIFT + CMD + P), and search for "sqlite" and click on the
+option that reads "SQLite: Open Database". Choose our database file: `API/datingapp.db`.
+
+The UX design for this Extension has changed in subsequent versions of Visual Studio. As of this
+writing, there should now be a "SQLITE EXPLORER" expandable menu at the bottom of the
+**Solution Explorer** tool window (on the left sidebar).
+
+Under the **SQLITE EXPLORER** menu, right-click on the "Users" table, and click on the
+"New Query [Insert]" option. You should see this SQL statement in the editor window:
+```sql
+-- SQLite
+INSERT INTO Users (Id, UserName)
+VALUES ();
+```
+
+Copy the complete statement a few times, and then populate `VALUES()` with values:
+```
+1, "Bob"
+2, "Tom"
+3, "Jane"
+```
+
+Highlight the three queries in the editor, right-click, then click on the "Run Selected Query"
+option. If you click the "Run" arrow next to the Users table, you should see output like:
+```
++----+----------+
+| Id | UserName |
++----+----------+
+|  1 | Bob      |
+|  2 | Tom      |
+|  3 | Jane     |
++----+----------+
 ```
