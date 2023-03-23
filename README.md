@@ -505,3 +505,39 @@ Set the request URL to: https://localhost:5001/api/users
 
 If you get an error like "Could not get response -- SSL Error: Unable to verify the first certificate",
 go to Settings (Preferences) and turn off "SSL Certificate Verification".
+
+
+## Multithreading
+
+We wrap the `ActionResult` return types with `Task<>`, with documentation that reads:
+> Represents an asynchronous operation that can return a value.
+
+And we pair this with the `await` keyword:
+> This async method lacks 'await' operators and will run synchronously. Consider using the 
+> 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work 
+> on a background thread.
+
+If you get an error like this when testing the API:
+```
+Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: 
+  The request matched multiple endpoints. Matches: 
+
+API.Controllers.UsersController.GetUser (API)
+API.Controllers.UsersController.GetUser (API)
+  at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.ReportAmbiguity(CandidateState[] candidateState)
+  at Microsoft.AspNetCore.Routing.Matching.DefaultEndpointSelector.ProcessFinalCandidates(HttpContext httpContext, CandidateState[] candidateState)
+  at Microsoft.AspNetCore.Routing.Matching.DfaMatcher.MatchAsync(HttpContext httpContext)
+  at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+  at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+HEADERS
+=======
+Accept: */*
+Connection: keep-alive
+Host: localhost:5001
+User-Agent: PostmanRuntime/7.31.1
+Accept-Encoding: gzip, deflate, br
+```
+
+It is likely a failure relating to the "Hot Reload" feature used by `dotnet watch run`. You'll
+need to shut down the dotnet runtime and restart it.
