@@ -12,7 +12,9 @@ If you are using Mac Apple Silicon Chip, install
 Download and install Node JS:  
 https://nodejs.org/en/
 
-You can use version 18.15.0 LTS  
+Edit: ~~You can use version 18.15.0 LTS~~ For this Udemy course you need to use Node
+version 16, which is available for download here:  
+https://nodejs.org/download/release/v16.10.0/
 
 ### NuGet: Dotnet Entity Framework
 
@@ -541,3 +543,160 @@ Accept-Encoding: gzip, deflate, br
 
 It is likely a failure relating to the "Hot Reload" feature used by `dotnet watch run`. You'll
 need to shut down the dotnet runtime and restart it.
+
+## Learning Goals
+
+Complete the walking skeleton and have an introductory understanding of:
+1. Using the Angular CLI
+2. How to create a new Angular app
+3. The Angular project files
+4. The Angular bootstrap process
+5. Using the Angular HTTP Client Service
+6. Running an Angular app over HTTPS
+7. How to add packages using NPM
+
+We will be using Angular to create a SPA (Single Page Application).
+
+Check versions with:
+```shell
+node --version
+
+npm --version
+```
+
+Then let's install Angular version 14:
+```shell
+npm install -g @angular/cli@14
+```
+
+If you get this sort of error:
+```
+npm ERR! code EACCES
+npm ERR! syscall mkdir
+npm ERR! path /usr/local/lib/node_modules/@angular
+npm ERR! errno -13
+npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/@angular'
+npm ERR!  [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/@angular'] {
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'mkdir',
+npm ERR!   path: '/usr/local/lib/node_modules/@angular'
+npm ERR! }
+npm ERR! 
+npm ERR! The operation was rejected by your operating system.
+npm ERR! It is likely you do not have the permissions to access this file as the current user
+npm ERR! 
+npm ERR! If you believe this might be a permissions issue, please double-check the
+npm ERR! permissions of the file and its containing directories, or try running
+npm ERR! the command again as root/Administrator.
+```
+
+You may need to run the command again, prefixed with `sudo`
+
+After successful installation, run this to see the Angular details:
+```
+ng version
+```
+
+Which will have output like:
+```
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
+    
+
+Angular CLI: 14.2.11
+Node: 16.10.0
+Package Manager: npm 7.24.0 
+OS: darwin arm64
+
+Angular: 
+... 
+
+Package                      Version
+------------------------------------------------------
+@angular-devkit/architect    0.1402.11 (cli-only)
+@angular-devkit/core         14.2.11 (cli-only)
+@angular-devkit/schematics   14.2.11 (cli-only)
+@schematics/angular          14.2.11 (cli-only)
+```
+
+Next run:
+```
+ng new client
+```
+Which will create a `client/` directory alongside our existing `API/` folder.
+
+Choose **Yes** for "Would you like to add Angular routing?", and choose **CSS** for 
+our stylesheet format.
+
+If you run into errors, try uninstalling the CLI and re-creating the `client` with:
+```
+rm -r client/
+
+npm cache clean --force
+npm uninstall -g @angular/CLI
+
+sudo chown -R 505:20 "/usr/local/lib/node_modules"
+
+sudo npm install -g @angular/cli@14
+
+npm -v
+
+ng version
+
+sudo ng new client
+```
+
+You should eventually see:
+```
+CREATE client/src/app/app.component.css (0 bytes)
+CREATE client/src/app/app.component.html (23115 bytes)
+CREATE client/src/app/app.component.spec.ts (1073 bytes)
+CREATE client/src/app/app.component.ts (210 bytes)
+✔ Packages installed successfully.
+    Directory is already under version control. Skipping initialization of git.
+```
+
+This might take a couple of minutes to download all the dependencies -- be patient 😉
+
+To run the Angular client app, navigate to the `client` dir with `cd client`,
+and then run `ng serve`.
+
+If you run into `Error: EACCES: permission denied, mkdir` errors, then try manually
+creating the `.angular` directory and elevating the permissions for the `client` dir:
+```
+sudo chmod -R 755 client/
+sudo chmod -R 775 /usr/local/lib/node_modules/
+
+cd client
+mkdir .angular
+```
+
+When you successfully run `ng serve`, you should see terminal output like this:
+```
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.12 MB | 
+polyfills.js          | polyfills     | 318.00 kB | 
+styles.css, styles.js | styles        | 210.08 kB | 
+main.js               | main          |  49.83 kB | 
+runtime.js            | runtime       |   6.51 kB | 
+
+                      | Initial Total |   2.69 MB
+
+Build at: 2023-03-24T23:10:11.568Z - Hash: da54282da5c1aa00 - Time: 5577ms
+
+** Angular Live Development Server is listening on localhost:4200, open your 
+browser on http://localhost:4200/ **
+```
+
+If we inspect the app root component, called `app.component.ts`, we will see a decorator
+called `@Component` that specifies the `app-root` that is declared in the `index.html` file.
+
+Files with the `ts` prefix or suffix utilize TypeScript:  
+https://www.typescriptlang.org/  
