@@ -719,3 +719,61 @@ called `@Component` that specifies the `app-root` that is declared in the `index
 
 Files with the `ts` prefix or suffix utilize TypeScript:  
 https://www.typescriptlang.org/  
+
+
+# Configuring our Angular SPA
+
+The `OnInit` interface is described as:
+> A lifecycle hook that is called after Angular has initialized all data-bound properties of 
+> a directive. Define an ngOnInit() method to handle any additional initialization tasks.
+
+Our `AppComponent` within the `app.module.ts` TypeScript file implements this interface.
+
+We'll need two Terminal instances; one to run our `client` app, and one to run our `API`.
+Under the Terminal tab, you can click the "Plus (+)" button to create another instance,
+and then they'll be shown in the right sidebar.  
+
+In one Terminal, `cd API` then `dotnet watch run`. In the other Terminal, `cd client` then
+`ng serve`. Now both services will be running.  
+
+Early on, if we run our application with:
+```js
+ngOnInit(): void {
+  this.http.get('https://localhost:5001/api/users').subscribe({
+    next: response => this.users = response,
+    error: error => console.log(error),
+    complete: () => console.log('Request has completed')
+  })
+}
+```
+
+Open up the DevTools Window by right-clicking in the Browser and clicking on "Inspect", 
+and we will get a CORS policy error:  
+https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
+```
+Access to XMLHttpRequest at 'https://localhost:5001/api/users' from origin 
+'http://localhost:4200' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' 
+header is present on the requested resource.
+```
+
+> Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server 
+> to indicate any origins (domain, scheme, or port) other than its own from which a browser should 
+> permit loading resources. CORS also relies on a mechanism by which browsers make a "preflight" 
+> request to the server hosting the cross-origin resource, in order to check that the server will 
+> permit the actual request. In that preflight, the browser sends headers that indicate the HTTP 
+> method and headers that will be used in the actual request.
+
+For development purposes, we can fix this by adding this CORS builder to the `Program.cs`:
+```csharp
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("http://localhost:4200"));
+```
+
+Once this change goes live, we should now see this Header present in our API response:
+```
+Access-Control-Allow-Origin: http://localhost:4200
+```
+Which will allow all responses from the 4200 server access port number.
