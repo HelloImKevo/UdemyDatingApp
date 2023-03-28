@@ -60,6 +60,12 @@ Open Settings, search for "exclude", under "Files: Exclude", click on **Add Patt
 `**/bin` and click **OK**. And do the same for `**/obj`. This will hide these folders from the
 Solution Explorer, since we won't interact with them very often.
 
+Within Settings, search for "bracket" and make sure these two settings are Enabled:
+- Auto Closing Brackets - Always
+- Bracket Pair Colorization: Enabled - Checked
+- Bracket Pair Colorization: Independent Color Pool Per Bracket Type - Unchecked
+- Guides: Bracket Pairs - True
+
 Open the **Command Palette** with: `SHIFT + CMD + P` (MacOS).
 
 Open the editor's **More Actions...** contextual menu with `CMD + .` (MacOS); this will provide 
@@ -144,7 +150,7 @@ Open project by running this in the Terminal:
 code .
 ```
 
-## Visual Studio Code Setup
+# Visual Studio Code Setup
 
 Go to the Extensions tab (looks like 4 Tetris blocks), and search for "C#".
 
@@ -376,6 +382,19 @@ Microsoft.EntityFrameworkCore.Sqlite by Microsoft
 ```
 
 Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. 🤟
+
+
+### Installing Angular Language Service
+
+Under Extensions, search for and install "Angular Language Service" by Angular.
+
+This extension provides a rich editing experience for Angular templates, both inline and external 
+templates including:
+- Completions lists
+- AOT Diagnostic messages
+- Quick info
+- Go to definition
+
 
 ### Entity Framework DbContext
 
