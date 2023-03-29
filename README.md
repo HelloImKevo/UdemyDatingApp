@@ -55,6 +55,22 @@ Credential Manager - this will be significantly more complex to configure.
 
 # Helpful Quick References
 
+## Angular App and API Quick Start
+
+In one VS Code Terminal, `cd API/` then run:
+```
+dotnet watch --no-hot-reload
+```
+
+And in another Terminal instance, `cd client` then run:
+```
+ng serve
+```
+
+Now both services (API server and client app) will be running. Open this URL in a browser:  
+https://localhost:4200/
+
+
 ## Visual Studio Code Tips and Tricks
 
 Open Settings, search for "exclude", under "Files: Exclude", click on **Add Pattern**. Type
@@ -941,3 +957,28 @@ Requirements:
 - Users should be able to register
 - Users should be able to view other users
 - Users should be able to privately message other users
+
+We're going to Hash and Salt user passwords to demonstrate the basic concepts of authentication.
+This isn't a battle-hardened, bullet-proof solution; this is just one step above adding 
+completely fake authentication. It just gives us the concept of how authentication works in 
+a very visible way that we can code ourselves.  
+
+Read more about security vulnerabilities, attack vectors, brute force attacks, access controls, 
+rainbow tables and other software security concepts here:  
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html  
+https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/  
+https://attack.mitre.org/techniques/enterprise/  
+https://security.stackexchange.com/questions/35523/is-salting-a-hash-really-as-secure-as-common-knowledge-implies  
+https://www.authgear.com/post/password-hashing-salting  
+
+
+## Authentication FAQs
+
+Safe storage of passwords:
+
+1. Why don't we use ASP.NET Identity?
+2. Why are we storing the **Password Salt** in the Database? Isn't this less secure?
+
+Don't worry! Later on we will refactor to the widely used and battle-hardened ASP.NET
+Core Identity: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity
+
