@@ -208,7 +208,9 @@ area (it should automagically show up). You might need to click on **Set File Ic
 depending on your operating environment.
 
 Optionally: Under Preferences > Settings, search for "compact", and turn off
-"Explorer: Compact Folders".
+"Explorer: Compact Folders".  
+
+Also install **GitLens - Git supercharged** by GitKraken if you want Git line annotations.  
 
 Open the **Command Palette** (SHIFT + CMD + P) and type ".net", and click on:
 ".NET: Generate Assets for Build and Debug". This will create the `.vscode` directory
