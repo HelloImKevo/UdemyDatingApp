@@ -440,7 +440,8 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       );
 ```
 
-### Installing a SQLite Browser Extension
+
+## Installing a SQLite Browser Extension
 
 Open the Extensions tool window, search for **SQLite**, and install the Extension 
 maintained by **alexcvzz**.
@@ -451,6 +452,9 @@ option that reads "SQLite: Open Database". Choose our database file: `API/dating
 The UX design for this Extension has changed in subsequent versions of Visual Studio. As of this
 writing, there should now be a "SQLITE EXPLORER" expandable menu at the bottom of the
 **Solution Explorer** tool window (on the left sidebar).
+
+
+### Inserting Test Values in SQL Users Table
 
 Under the **SQLITE EXPLORER** menu, right-click on the "Users" table, and click on the
 "New Query [Insert]" option. You should see this SQL statement in the editor window:
@@ -777,3 +781,14 @@ Once this change goes live, we should now see this Header present in our API res
 Access-Control-Allow-Origin: http://localhost:4200
 ```
 Which will allow all responses from the 4200 server access port number.
+
+
+## Angular NG Directives
+
+The documentation for `*ngFor` reads:
+> A structural directive that renders a template for each item in a collection. The directive 
+> is placed on an element, which becomes the parent of the cloned templates.
+> 
+> The `ngForOf` directive is generally used in the shorthand form `*ngFor`. In this form, the 
+> template to be rendered for each iteration is the content of an anchor element containing 
+> the directive.
