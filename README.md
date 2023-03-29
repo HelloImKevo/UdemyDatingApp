@@ -792,3 +792,45 @@ The documentation for `*ngFor` reads:
 > The `ngForOf` directive is generally used in the shorthand form `*ngFor`. In this form, the 
 > template to be rendered for each iteration is the content of an anchor element containing 
 > the directive.
+
+
+## Angular Schematics
+
+A schematic is a template-based code generator that supports complex logic. It is a set 
+of instructions for transforming a software project by generating or modifying code. 
+Schematics are packaged into collections and installed with npm.
+
+Schematics are part of the Angular ecosystem. The Angular CLI uses schematics to apply 
+transforms to a web-app project. You can modify these schematics, and define new ones 
+to do things like update your code to fix breaking changes in a dependency, for example, 
+or to add a new configuration option or framework to an existing project.
+
+Schematics that are included in the `@schematics/angular` collection are run by default 
+by the commands ng generate and ng add.  
+
+https://angular.io/guide/schematics  
+
+
+## Installing NGX Bootstrap
+
+Installation instructions are here:
+https://valor-software.com/ngx-bootstrap/#/documentation#installation  
+
+But at the time of this writing, if we try to run:
+```
+ng add ngx-bootstrap
+```
+
+It will fail with an error (since ngx-bootstrap version 9.0.0 is not compatible with
+Angular CLI version 14). So instead, let's run these commands (make sure you are in the
+`client/` directory) with versions explicitly declared:
+```
+npm install ngx-bootstrap@9
+
+npm install bootstrap@5
+```
+
+And let's install a font package to make our UI classy:
+```
+npm install font-awesome
+```
