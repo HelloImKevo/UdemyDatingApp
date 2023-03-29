@@ -834,3 +834,71 @@ And let's install a font package to make our UI classy:
 ```
 npm install font-awesome
 ```
+
+
+## Using HTTPS in Angular (MacOS)
+
+Inside our `client/ssl/` folder, there are two files:
+```
+server.crt
+server.key
+```
+
+Double-click on the `server.crt` file to install it as a `localhost` certificate in the
+MacOS Keychain Access, under the "login" option in the left sidebar (it won't show up
+if you have "System" or "System Roots" selected).  
+
+These are the detailed installation instructions:
+1. Double click on the certificate (`server.crt`)
+2. Select your desired keychain (**login** should suffice)
+3. Add the certificate
+4. Open **Keychain Access** if it isn't already open
+5. Select the keychain you chose earlier
+6. You should see the certificate **localhost**
+7. Double click on the certificate
+8. Expand **Trust**
+9. Select the option **Always Trust** in **When using this certificate**
+10. Close the certificate window
+
+The certificate should now be installed. This certificate was generated using this 
+`openssl-custom.cnf` configuration:
+```
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+x509_extensions = v3_req
+distinguished_name = dn
+
+[dn]
+C = US
+ST = KS
+L = Olathe
+O = IT
+OU = IT Department
+emailAddress = webmaster@example.com
+CN = localhost
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = *.localhost
+DNS.2 = localhost
+```
+
+With Shell command:
+```shell
+#!bin/bash
+
+openssl req \
+    -newkey rsa:2048 \
+    -x509 \
+    -nodes \
+    -keyout server.key \
+    -new \
+    -out server.crt \
+    -config ./openssl-custom.cnf \
+    -sha256 \
+    -days 7300
+```
