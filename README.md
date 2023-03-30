@@ -984,3 +984,28 @@ Safe storage of passwords:
 Don't worry! Later on we will refactor to the widely used and battle-hardened ASP.NET
 Core Identity: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity
 
+
+## API Controller Basics
+
+By default, an API function written like this:
+```cs
+public async Task<ActionResult<AppUser>> Register(string username, string password)
+```
+
+Derives the parameters from the URL Query Params, like `?username=foo&password=bar`.
+
+
+### Debugger Basics
+
+To add a debugger breakpoint, just click to the left of the line number you want
+execution to break (stop). This will create a small Red Dot in the IDE Editor window.  
+
+To run and debug our API, click on the **Run and Debug** tool window (SHIFT + CMD + D),
+and then click on the Play button next to **.NET Core Launch (web)** located in the 
+top-left corner of the IDE.  
+
+You can also Attach the debugger to an already-running API instance (note: this will
+not work when using Hot Reload). The list of "debuggable processes" is often quite 
+large, so you can search the list for "API" and then click on the appropriate Process ID.  
+
+In Windows environments the debuggable process might be named `API.exe`.
