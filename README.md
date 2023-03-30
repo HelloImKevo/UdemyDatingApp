@@ -52,7 +52,24 @@ If you're running into issues, make sure you aren't using a repo that was origin
 configured for SSH, and you are now attempting to use the same repo with Git 
 Credential Manager - this will be significantly more complex to configure.
 
+
 # Helpful Quick References
+
+## Angular App and API Quick Start
+
+In one VS Code Terminal, `cd API/` then run:
+```
+dotnet watch --no-hot-reload
+```
+
+And in another Terminal instance, `cd client` then run:
+```
+ng serve
+```
+
+Now both services (API server and client app) will be running. Open this URL in a browser:  
+https://localhost:4200/
+
 
 ## Visual Studio Code Tips and Tricks
 
@@ -99,13 +116,13 @@ dotnet tool list -g
 
 
 ## A Walking Skeleton
-A Walking Skeleton is a tiny implementation of the system that performs a small 
-end-to-end function. It need not use the final architecture, but it should link 
-together the main architectural components.
-
-The architecture and the functionality can then evolve in parallel.
-
-- Alistair Cockburn
+> A Walking Skeleton is a tiny implementation of the system that performs a small 
+> end-to-end function. It need not use the final architecture, but it should link 
+> together the main architectural components.
+> 
+> The architecture and the functionality can then evolve in parallel.
+> 
+> - Alistair Cockburn
 
 LEARNING GOALS
 Implement the basic API functionality and have an introductory understanding of:
@@ -116,6 +133,7 @@ Implement the basic API functionality and have an introductory understanding of:
 4. The API Project structure
 5. Configuration and Environment variables
 6. Source control
+
 
 ## Creating a New Project
 Run:
@@ -149,6 +167,7 @@ Open project by running this in the Terminal:
 ```shell
 code .
 ```
+
 
 # Visual Studio Code Setup
 
@@ -189,11 +208,14 @@ area (it should automagically show up). You might need to click on **Set File Ic
 depending on your operating environment.
 
 Optionally: Under Preferences > Settings, search for "compact", and turn off
-"Explorer: Compact Folders".
+"Explorer: Compact Folders".  
+
+Also install **GitLens - Git supercharged** by GitKraken if you want Git line annotations.  
 
 Open the **Command Palette** (SHIFT + CMD + P) and type ".net", and click on:
 ".NET: Generate Assets for Build and Debug". This will create the `.vscode` directory
 and the configuration files: `launch.json` and `tasks.json`.
+
 
 ## Running Project for the First Time
 Toggle the **Terminal** (CTRL + Backtick), change directory to `API/` and then run:
@@ -224,6 +246,7 @@ HTTP ERROR 404
 Examine the `WeatherForecastController.cs` (after modifications to the codebase, this file 
 will no longer exist), and look at the `[Route]` property -- the String, `"Controller"` gets
 removed from the class name, to build the URL for the endpoint.
+
 
 ### API URL in Browser
 So the active URL for the project at this point in time is actually:  
@@ -320,7 +343,57 @@ Now let's run `dotnet watch run`. You should see a message like: `Hot reload ena
 to "Hot Reload" and re-deploy changes as you make them in the Editor can be finicky (sometimes it 
 causes more problems than it solves).
 
-## Entity Frameworks
+
+### Troubleshooting Dotnet Runtime
+
+If you encounter this error:
+```
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
+```
+
+You can try running:
+```
+lsof -i:5001
+```
+
+Example output:
+```
+Google    36572 john   70u  IPv6 0x1223c1a0ae0e2ced  0t0  TCP localhost:60565->localhost:commplex-link (ESTABLISHED)
+API       96825 john  244u  IPv4 0x1223c1aa43f9eee5  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  245u  IPv6 0x1223c1a0ae0e3bed  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  256u  IPv6 0x1223c1a0ae0c436d  0t0  TCP localhost:commplex-link->localhost:60565 (ESTABLISHED)
+```
+
+Then run `kill -9 <pid>` to manually kill the leftover "API" processes. In the above example, it 
+should be: `kill -9 96825`.
+
+Then run `dotnet watch run` or `dotnet run`, then navigate to:  
+https://localhost:5001/api/users
+
+You should see this output in the Browser UI:
+```json
+[{
+  "id": 1,
+  "userName": "Bob"
+}, {
+  "id": 2,
+  "userName": "Tom"
+}, {
+  "id": 3,
+  "userName": "Jane"
+}]
+```
+
+For API testing, it's more efficient to use Postman. Go ahead and create a new Postman Workspace 
+named "UdemyDatingApp", and add a Collection called "Users", and add a Request called "Get Users".  
+
+Set the request URL to: https://localhost:5001/api/users  
+
+If you get an error like "Could not get response -- SSL Error: Unable to verify the first certificate",
+go to Settings (Preferences) and turn off "SSL Certificate Verification".
+
+
+# Entity Frameworks
 
 What is it? An Object Relational Mapper (ORM), which translates our code into SQL commands that
 update our tables in the database. Prior to .NET 3.5, we often used to write ADO.NET code to
@@ -343,7 +416,8 @@ to protect overwriting changes from another user, and database **Transactions**.
 schema), and **Configurations** for entities. It also offers us **Migrations**, to make our
 database management more robust.
 
-### Installing Nuget
+
+## Installing Nuget
 
 Under Extensions, search for and install "NuGet Gallery" by pcislo.
 
@@ -384,7 +458,7 @@ Microsoft.EntityFrameworkCore.Sqlite by Microsoft
 Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. 🤟
 
 
-### Installing Angular Language Service
+## Installing Angular Language Service
 
 Under Extensions, search for and install "Angular Language Service" by Angular.
 
@@ -396,7 +470,7 @@ templates including:
 - Go to definition
 
 
-### Entity Framework DbContext
+## Entity Framework DbContext
 
 From the docs:
 
@@ -483,54 +557,6 @@ option. If you click the "Run" arrow next to the Users table, you should see out
 +----+----------+
 ```
 
-## Troubleshooting Dotnet Runtime
-
-If you encounter this error:
-```
-System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
-```
-
-You can try running:
-```
-lsof -i:5001
-```
-
-Example output:
-```
-Google    36572 john   70u  IPv6 0x1223c1a0ae0e2ced  0t0  TCP localhost:60565->localhost:commplex-link (ESTABLISHED)
-API       96825 john  244u  IPv4 0x1223c1aa43f9eee5  0t0  TCP localhost:commplex-link (LISTEN)
-API       96825 john  245u  IPv6 0x1223c1a0ae0e3bed  0t0  TCP localhost:commplex-link (LISTEN)
-API       96825 john  256u  IPv6 0x1223c1a0ae0c436d  0t0  TCP localhost:commplex-link->localhost:60565 (ESTABLISHED)
-```
-
-Then run `kill -9 <pid>` to manually kill the leftover "API" processes. In the above example, it 
-should be: `kill -9 96825`.
-
-Then run `dotnet watch run` or `dotnet run`, then navigate to:  
-https://localhost:5001/api/users
-
-You should see this output in the Browser UI:
-```json
-[{
-  "id": 1,
-  "userName": "Bob"
-}, {
-  "id": 2,
-  "userName": "Tom"
-}, {
-  "id": 3,
-  "userName": "Jane"
-}]
-```
-
-For API testing, it's more efficient to use Postman. Go ahead and create a new Postman Workspace 
-named "UdemyDatingApp", and add a Collection called "Users", and add a Request called "Get Users".  
-
-Set the request URL to: https://localhost:5001/api/users  
-
-If you get an error like "Could not get response -- SSL Error: Unable to verify the first certificate",
-go to Settings (Preferences) and turn off "SSL Certificate Verification".
-
 
 ## Multithreading
 
@@ -567,6 +593,9 @@ Accept-Encoding: gzip, deflate, br
 It is likely a failure relating to the "Hot Reload" feature used by `dotnet watch run`. You'll
 need to shut down the dotnet runtime and restart it.
 
+
+# Angular Framework
+
 ## Learning Goals
 
 Complete the walking skeleton and have an introductory understanding of:
@@ -579,6 +608,9 @@ Complete the walking skeleton and have an introductory understanding of:
 7. How to add packages using NPM
 
 We will be using Angular to create a SPA (Single Page Application).
+
+
+## Angular CLI Initial Setup
 
 Check versions with:
 ```shell
@@ -902,3 +934,78 @@ openssl req \
     -sha256 \
     -days 7300
 ```
+
+
+# Authentication Basics
+
+## Authentication: Learning Goals
+
+Implement basic authentication in our app and have an understanding of:
+1. How to store passwords in the Database
+2. Using inheritance in C# - DRY (Don't Repeat Yourself)
+3. Using the C# debugger
+4. Using Data Transfer Objects (DTOs)
+5. Validation
+6. JSON Web Tokens (JWTs)
+7. Using services in C#
+8. Middleware
+9. Extension methods - DRY
+
+
+## Where do I start?
+
+Requirements:
+- Users should be able to log in
+- Users should be able to register
+- Users should be able to view other users
+- Users should be able to privately message other users
+
+We're going to Hash and Salt user passwords to demonstrate the basic concepts of authentication.
+This isn't a battle-hardened, bullet-proof solution; this is just one step above adding 
+completely fake authentication. It just gives us the concept of how authentication works in 
+a very visible way that we can code ourselves.  
+
+Read more about security vulnerabilities, attack vectors, brute force attacks, access controls, 
+rainbow tables and other software security concepts here:  
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html  
+https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/  
+https://attack.mitre.org/techniques/enterprise/  
+https://security.stackexchange.com/questions/35523/is-salting-a-hash-really-as-secure-as-common-knowledge-implies  
+https://www.authgear.com/post/password-hashing-salting  
+
+
+## Authentication FAQs
+
+Safe storage of passwords:
+
+1. Why don't we use ASP.NET Identity?
+2. Why are we storing the **Password Salt** in the Database? Isn't this less secure?
+
+Don't worry! Later on we will refactor to the widely used and battle-hardened ASP.NET
+Core Identity: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity
+
+
+## API Controller Basics
+
+By default, an API function written like this:
+```cs
+public async Task<ActionResult<AppUser>> Register(string username, string password)
+```
+
+Derives the parameters from the URL Query Params, like `?username=foo&password=bar`.
+
+
+### Debugger Basics
+
+To add a debugger breakpoint, just click to the left of the line number you want
+execution to break (stop). This will create a small Red Dot in the IDE Editor window.  
+
+To run and debug our API, click on the **Run and Debug** tool window (SHIFT + CMD + D),
+and then click on the Play button next to **.NET Core Launch (web)** located in the 
+top-left corner of the IDE.  
+
+You can also Attach the debugger to an already-running API instance (note: this will
+not work when using Hot Reload). The list of "debuggable processes" is often quite 
+large, so you can search the list for "API" and then click on the appropriate Process ID.  
+
+In Windows environments the debuggable process might be named `API.exe`.
