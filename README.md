@@ -1075,3 +1075,34 @@ not work when using Hot Reload). The list of "debuggable processes" is often qui
 large, so you can search the list for "API" and then click on the appropriate Process ID.  
 
 In Windows environments the debuggable process might be named `API.exe`.
+
+
+### Development JWT TokenKey
+
+In the `appsettings.Development.json` local configuration file, add this property:
+```js
+"TokenKey": "super secret unguessable key"
+```
+
+When we call our new and improved Login API, a successful login response will have a 
+`"token"` property that looks like this:
+```js
+{
+    "username": "jim",
+    "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJqaW0iLCJuYmYiOjE2ODAyOTgwOTksImV4cCI6MTY4MDkwMjg5OSwiaWF0IjoxNjgwMjk4MDk5fQ.1qccJUbwCaZUpX2LoB_e2QuikREfpmJc0bWFmfQ61PGBSfYQVegc_o-RVVV4ig3-7QV9AbHX9l3skvbDmO_ckg"
+}
+```
+
+If we go to https://jwt.ms/ and paste the token in there, we will see a Decoded Token
+like:
+```
+{
+  "alg": "HS512",
+  "typ": "JWT"
+}.{
+  "nameid": "jim",
+  "nbf": 1680298099,
+  "exp": 1680902899,
+  "iat": 1680298099
+}.[Signature]
+```
