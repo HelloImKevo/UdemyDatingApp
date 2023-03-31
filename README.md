@@ -994,6 +994,10 @@ public async Task<ActionResult<AppUser>> Register(string username, string passwo
 
 Derives the parameters from the URL Query Params, like `?username=foo&password=bar`.
 
+If we wanted to use query params, we would need to specify the attribute `[FromBody]`. 
+However, we're going to use the power of the `[ApiController]` attribute, and use a DTO 
+called `RegisterDto` instead.
+
 
 ### Debugger Basics
 

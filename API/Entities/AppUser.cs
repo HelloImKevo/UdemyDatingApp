@@ -8,6 +8,11 @@ namespace API.Entities
     2023-03-29: Run:
       dotnet ef migrations add UserPasswordAdded
       dotnet ef database update
+
+    2023-03-31: We experimented with:
+      using System.ComponentModel.DataAnnotations.[Required]
+      dotnet ef migrations add UsernameRequired
+      dotnet ef migrations remove
      */
     public class AppUser
     {
