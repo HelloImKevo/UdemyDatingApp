@@ -463,8 +463,12 @@ Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. ðŸ¤
 Open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet" and click on the
 option that reads "NuGet: Open NuGet Gallery".
 
-Look for "System.Identity" by Microsoft, and install "System.IdentityModel.Tokens.Jwt".
+Look for "system.identity", and install "System.IdentityModel.Tokens.Jwt" by Microsoft.
 I selected version `6.24.0`.
+
+Look for "microsoft.aspnetcore.authentication", and install 
+"Microsoft.AspNetCore.Authentication.JwtBearer" by Microsoft.
+I selected version `6.0.10`.
 
 
 ## Installing Angular Language Service
