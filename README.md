@@ -458,6 +458,15 @@ Microsoft.EntityFrameworkCore.Sqlite by Microsoft
 Double-check the `API.csproj` file to confirm we are ready to rock-and-roll. 🤟
 
 
+### NuGet: Installing Identity Model Tokens JWT
+
+Open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet" and click on the
+option that reads "NuGet: Open NuGet Gallery".
+
+Look for "System.Identity" by Microsoft, and install "System.IdentityModel.Tokens.Jwt".
+I selected version `6.24.0`.
+
+
 ## Installing Angular Language Service
 
 Under Extensions, search for and install "Angular Language Service" by Angular.
@@ -997,6 +1006,59 @@ Derives the parameters from the URL Query Params, like `?username=foo&password=b
 If we wanted to use query params, we would need to specify the attribute `[FromBody]`. 
 However, we're going to use the power of the `[ApiController]` attribute, and use a DTO 
 called `RegisterDto` instead.
+
+
+### JSON Web Tokens (JWT)
+
+Industry standard for tokens (RFC 7519). They are self-contained and can contain:
+- Credentials
+- Claims
+- Other information
+
+Benefits of JWT:
+- No session to manage; JWTs are self-contained tokens
+- Portable; A single token can be used with multiple backends
+- No Cookies are required; Mobile friendly
+- Performance; Once a token is issued, there is no need to make a database request
+  to verify a user's authentication
+
+In its compact form, JSON Web Tokens consist of three parts separated by dots (`.`), 
+which are:
+- Header
+- Payload
+- Verify Signature
+
+Therefore, a JWT typically looks like the following:
+```
+xxxxx.yyyyy.zzzzz
+```
+
+Header:
+```
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+Payload:
+```
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+```
+
+Signature:
+```
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+```
+
+Read more here: https://jwt.io/introduction  
 
 
 ### Debugger Basics
