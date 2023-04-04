@@ -1110,3 +1110,66 @@ like:
   "iat": 1680298099
 }.[Signature]
 ```
+
+
+# Client Login and Register
+
+## Client Login and Register: Learning Goals
+
+Implement the login and register functionality into the apps as well as understanding:
+1. Creating components using the Angular CLI
+2. Using Angular Template forms
+3. Using Angular services
+4. Understanding Observables
+5. Using Angular structural directives to conditionally display elements on a page
+6. Component communication from parent to child
+7. Component communication from child to parent
+
+
+## Creating a Nav Bar
+
+Bootstrap 5.2 Examples: https://getbootstrap.com/docs/5.2/examples/  
+
+```html
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Carousel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+```
+
+```shell
+~/GitProjects/UdemyDatingApp/client % ng g --help
+
+~/GitProjects/UdemyDatingApp/client % ng g component nav --dry-run
+CREATE src/app/nav/nav.component.css (0 bytes)
+CREATE src/app/nav/nav.component.html (18 bytes)
+CREATE src/app/nav/nav.component.spec.ts (578 bytes)
+CREATE src/app/nav/nav.component.ts (263 bytes)
+UPDATE src/app/app.module.ts (541 bytes)
+```
+
+Run this command to create the Nav Bar component:
+```
+ng g component nav --skip-tests
+```
