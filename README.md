@@ -1173,3 +1173,6 @@ Run this command to create the Nav Bar component:
 ```
 ng g component nav --skip-tests
 ```
+
+NGX Bootstrap Dropdown component:  
+https://valor-software.com/ngx-bootstrap/#/components/dropdowns?tab=overview
