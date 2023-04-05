@@ -1176,3 +1176,40 @@ ng g component nav --skip-tests
 
 NGX Bootstrap Dropdown component:  
 https://valor-software.com/ngx-bootstrap/#/components/dropdowns?tab=overview
+
+
+## What are Observables?
+
+New standard for managing async data included in ES7 (ECMAScript 2016):  
+https://www.w3schools.io/javascript/es7-features-introduction/  
+https://github.com/tc39/proposals  
+
+Observables were introduced in Angular v2, and everything that is asynchronous in Angular 
+uses Observables. For browser backwards compatibility, there is a compiler called Babel 
+that can assist.  
+https://babeljs.io/  
+
+`Observables` are lazy collections of multiple values over time. We can use them to stream
+data. We typically use them for HTTP requests and when we want our `Components` to observe 
+values set up inside a `Service`.  
+
+You can think of observables like a newsletter:
+- Only subscribers of the newsletter receive the newsletter
+- If no-one subscribes to the newsletter, it probably will not be printed
+
+
+### Promises vs. Observables
+
+Promises...
+1. Provide a single future value
+2. Are not lazy
+3. Can not cancel
+
+Observables...
+1. Emit multiple values over time
+2. Are lazy (they won't do anything until somebody subscribes to them)
+3. Are able to be canceled
+4. Can be used with map, filter, reduce and other operators
+
+We can also use RxJS (Reactive Extensions JavaScript) with Observables!  
+https://rxjs.dev/
