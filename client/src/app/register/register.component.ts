@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AccountService } from '../_services/account.service';
 
 /**
  * Created with command:
@@ -12,17 +13,22 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Input() usersFromHomeComponent: any;
   @Output() cancelRegister = new EventEmitter();
   model: any = {}
 
-  constructor() { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
   }
 
-  register() {
-    console.log(this.model);
+  registerNewUser() {
+    this.accountService.registerApi(this.model).subscribe({
+      next: () => {
+        // Close the 'Register' form.
+        this.cancel();
+      },
+      error: error => console.log(error)
+    });
   }
 
   cancel() {

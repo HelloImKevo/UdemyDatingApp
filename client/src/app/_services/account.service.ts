@@ -25,6 +25,12 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Calls the 'Login' API with the provided username and password.
+   * 
+   * @param model The username and password to attempt to log in to an
+   * existing account.
+   */
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
@@ -33,6 +39,30 @@ export class AccountService {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
+      })
+    );
+  }
+
+  /**
+   * Calls the 'Register New User' API.
+   *
+   * @param model The username and password to register as a new 'User'.
+   */
+  registerApi(model: any) {
+    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+      // In RxJS, a projection function is a function that transforms the data
+      // emitted by an Observable into a new form. A projection function can be
+      // passed as a parameter to operators like `map`, `pluck`, `mergeMap`, and
+      // others to modify the emitted data. They provide a way to manipulate
+      // streams of data in a flexible and powerful way.
+      map(user => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+        // We don't need the information returned from this projection function.
+        // But if we wanted the user, we can add this:
+        // return user;
       })
     );
   }
