@@ -1231,3 +1231,5 @@ Implement routing in our Angular app and have an understanding of:
 <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
 <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
 ```
+
+https://angular.io/guide/routing-overview  
