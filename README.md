@@ -64,6 +64,7 @@ dotnet watch --no-hot-reload
 
 And in another Terminal instance, `cd client` then run:
 ```
+kill -9  $(lsof -t -i:4200);ng serve
 ng serve
 ```
 
@@ -1233,3 +1234,17 @@ Implement routing in our Angular app and have an understanding of:
 ```
 
 https://angular.io/guide/routing-overview  
+
+
+## Installing Ngx Toastr
+
+https://github.com/scttcper/ngx-toastr  
+
+https://ngx-toastr.vercel.app/  
+
+```
+cd client/
+npm install --cache /tmp/empty-cache
+npm install
+npm install ngx-toastr@14.3.0 --save
+```
