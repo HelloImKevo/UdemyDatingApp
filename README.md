@@ -1213,3 +1213,21 @@ Observables...
 
 We can also use RxJS (Reactive Extensions JavaScript) with Observables!  
 https://rxjs.dev/
+
+
+# Section 6: Routing in Angular
+
+## Routing in Angular: Learning Goals
+
+Implement routing in our Angular app and have an understanding of:
+1. Angular routing (Single Page Application)
+2. Adding a bootstrap theme
+3. Using Angular route guards (they don't provide good security, but prevent
+   users from navigating to areas they're not supposed to).
+4. Using a Shared Module
+
+```html
+<a class="nav-link" routerLink="/members" routerLinkActive="active">Matches</a>
+<a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
+<a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
+```
