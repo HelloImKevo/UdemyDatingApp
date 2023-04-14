@@ -1248,3 +1248,9 @@ npm install --cache /tmp/empty-cache
 npm install
 npm install ngx-toastr@14.3.0 --save
 ```
+
+https://bootswatch.com/  
+
+```
+npm install bootswatch
+```
