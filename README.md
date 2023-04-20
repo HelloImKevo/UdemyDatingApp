@@ -1254,3 +1254,14 @@ https://bootswatch.com/
 ```
 npm install bootswatch
 ```
+
+
+# Section 7: Error Handling
+
+## Error Handling: Learning Goals
+
+Implement global error handling in both the API and the Angular application.
+Also to have an understanding of:
+1. API Middleware
+2. Angular Interceptors
+3. Troubleshooting Exceptions - "Error Handling Utopia"
