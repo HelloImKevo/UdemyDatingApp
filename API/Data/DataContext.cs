@@ -8,6 +8,7 @@ namespace API.Data
     /// <code>
     /// dotnet ef database drop
     /// </code>
+    ///
     /// And a new database instance can be created with:
     /// <code>
     /// dotnet ef database update

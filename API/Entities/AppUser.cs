@@ -3,18 +3,30 @@ using API.Extensions;
 namespace API.Entities
 {
     /*
-    2023-03-21: Run:
+    [2023-03-21] Run:
       dotnet ef migrations add InitialCreate -o Data/Migrations
       dotnet ef database update
 
-    2023-03-29: Run:
+    [2023-03-29] Run:
       dotnet ef migrations add UserPasswordAdded
       dotnet ef database update
 
-    2023-03-31: We experimented with:
+    [2023-03-31] We experimented with:
       using System.ComponentModel.DataAnnotations.[Required]
       dotnet ef migrations add UsernameRequired
       dotnet ef migrations remove
+
+    [2023-04-27] Run:
+      dotnet ef migrations add ExtendedUserEntity
+    This resulted in a [Photos] table with a nullable FK...
+    See: https://learn.microsoft.com/en-us/ef/core/modeling/relationships
+
+    So we removed that migration:
+      dotnet ef migrations remove
+
+    Then run the first command again:
+      dotnet ef migrations add ExtendedUserEntity
+      dotnet ef database update
      */
     public class AppUser
     {
