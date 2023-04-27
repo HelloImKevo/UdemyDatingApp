@@ -1265,3 +1265,15 @@ Also to have an understanding of:
 1. API Middleware
 2. Angular Interceptors
 3. Troubleshooting Exceptions - "Error Handling Utopia"
+
+
+# Section 8: Extending the API
+
+## Extending the API: Learning Goals
+
+Implement further functionality into our API and gain an understanding of:
+1. Entity Framework Relationships
+2. Entity Framework Conventions
+3. Seeding Data into the Database
+4. The Repository Pattern
+5. Using AutoMapper

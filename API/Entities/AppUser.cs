@@ -1,3 +1,5 @@
+using API.Extensions;
+
 namespace API.Entities
 {
     /*
@@ -16,9 +18,9 @@ namespace API.Entities
      */
     public class AppUser
     {
-        //
-        // Summary:
-        //     Primary Key for the User.
+        /// <summary>
+        /// Primary Key for the User.
+        /// </summary>
         public int Id { get; set; }
 
         // "UserName" is used (instead of username) to prevent refactoring headaches later on.
@@ -27,5 +29,57 @@ namespace API.Entities
         public byte[] PasswordHash { get; set; }
 
         public byte[] PasswordSalt { get; set; }
+
+        public DateOnly DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Non-Unique display name for the User. Allows more that one User to have
+        /// a name like "John".
+        /// </summary>
+        public string KnownAs { get; set; }
+
+        /// <summary>
+        /// When the User was created in our database.
+        /// </summary>
+        public DateTime Created { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// When was the User last active?
+        /// </summary>
+        public DateTime LastActive { get; set; } = DateTime.UtcNow;
+
+        public string Gender { get; set; }
+
+        /// <summary>
+        /// Introduction tagline for the User; a brief summary about themselves.
+        /// </summary>
+        public string Introduction { get; set; }
+
+        /// <summary>
+        /// Qualities this User is looking for in potential matches.
+        /// </summary>
+        public string LookingFor { get; set; }
+
+        /// <summary>
+        /// A list of the User's interests.
+        /// </summary>
+        public string Interests { get; set; }
+
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
+        /// <summary>
+        /// Collection of the User's uploaded Photos.
+        /// </summary>
+        public List<Photo> Photos { get; set; } = new();
+
+        /// <summary>
+        /// Returns how many years old this User is.
+        /// </summary>
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 }
