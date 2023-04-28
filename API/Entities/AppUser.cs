@@ -27,6 +27,9 @@ namespace API.Entities
     Then run the first command again:
       dotnet ef migrations add ExtendedUserEntity
       dotnet ef database update
+
+    [2023-04-28] Run:
+      dotnet ef database drop
      */
     public class AppUser
     {
