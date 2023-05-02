@@ -472,6 +472,15 @@ Look for "microsoft.aspnetcore.authentication", and install
 I selected version `6.0.10`.
 
 
+### NuGet: Installing AutoMapper
+
+Open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet" and click on the
+option that reads "NuGet: Open NuGet Gallery".
+
+Look for "automapper", and install "AutoMapper.Extensions.Microsoft.DependencyInjection" 
+by Jimmy Bogard. I selected version `12.0.0`.
+
+
 ## Installing Angular Language Service
 
 Under Extensions, search for and install "Angular Language Service" by Angular.
