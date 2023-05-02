@@ -17,6 +17,9 @@ namespace API.DTOs
         /// </summary>
         public string PhotoUrl { get; set; }
 
+        /// <summary>
+        /// How many years old this member is.
+        /// </summary>
         public int Age { get; set; }
 
         public string KnownAs { get; set; }

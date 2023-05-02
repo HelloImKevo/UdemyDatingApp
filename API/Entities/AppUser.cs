@@ -88,13 +88,5 @@ namespace API.Entities
         /// Collection of the User's uploaded Photos.
         /// </summary>
         public List<Photo> Photos { get; set; } = new();
-
-        /// <summary>
-        /// Returns how many years old this User is.
-        /// </summary>
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
     }
 }
