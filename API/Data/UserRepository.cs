@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
+    /// <summary>
+    /// Read more on Eager Loading of Related Data:
+    /// https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
@@ -20,12 +24,18 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+            return await _context.Users
+                // Eager load the entity.
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                // Eager load the entity.
+                .Include(p => p.Photos)
+                .ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
