@@ -1277,3 +1277,24 @@ Implement further functionality into our API and gain an understanding of:
 3. Seeding Data into the Database
 4. The Repository Pattern
 5. Using AutoMapper
+
+
+## The Repository Pattern
+
+> A Repository mediates between the domain and data mapping layers, acting
+> like an in-memory domain object collection.
+> - Martin Fowler (Patterns of Enterprise Architecture)
+
+We've got a web server, the Kestrel server, in our API 
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-7.0 
+and requests come in to our controller endpoint. In our controllers we inject
+the DB context, and our DB context represents a session with our database.
+
+In our case, the repository is an abstraction from `DbContext`. The pattern
+will encapsulate the logic (ex: `GetUser(), GetUsers(), UpdateUser()`), instead
+of exposing the hundreds of methods native to `DbContext`. It also reduces
+duplicate query logic, across multiple controllers. The repository pattern
+also promotes testability - the repository is easier to test against than it
+is to test the `DbContext` (ex: `IRepository, MockRepository`). The pattern
+also decouples our application from the persistence framework (which in a way,
+Entity Framework already accomplishes that to some extent).
