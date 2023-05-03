@@ -1307,3 +1307,16 @@ also promotes testability - the repository is easier to test against than it
 is to test the `DbContext` (ex: `IRepository, MockRepository`). The pattern
 also decouples our application from the persistence framework (which in a way,
 Entity Framework already accomplishes that to some extent).
+
+
+# Section 9: Building the User Interface
+
+## Building the User Interface: Learning Goals
+
+Implement the components that make up the user interface in our client 
+application and gain an understanding of:
+1. Using Typescript types
+2. Using the async pipe
+3. Using bootstrap for styling
+4. Basic CSS tricks to enhance the look
+5. Using a 3rd party photo gallery

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 /**
  * Created with command:
@@ -17,7 +18,7 @@ import { User } from '../_models/user';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
   // Specify a "Union Type" of User or Null
   private currentUserSource = new BehaviorSubject<User | null>(null);
   // The sigil ($) is a convention for "An Observable"
