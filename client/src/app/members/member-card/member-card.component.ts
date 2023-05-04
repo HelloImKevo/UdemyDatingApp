@@ -13,6 +13,11 @@ import { Member } from 'src/app/_models/member';
   selector: 'app-member-card',
   templateUrl: './member-card.component.html',
   styleUrls: ['./member-card.component.css']
+  // ViewEncapsulation alters how the Angular framework assigns
+  // "global" IDs to HTML components in our client app. We could
+  // potentially use this to apply global styles to ALL card components
+  // across the application.
+  // , encapsulation: ViewEncapsulation.Emulated
 })
 export class MemberCardComponent implements OnInit {
   @Input() member: Member | undefined;
