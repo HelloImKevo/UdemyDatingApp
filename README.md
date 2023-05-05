@@ -1320,3 +1320,14 @@ application and gain an understanding of:
 3. Using bootstrap for styling
 4. Basic CSS tricks to enhance the look
 5. Using a 3rd party photo gallery
+
+
+## Installing Ngx Gallery
+
+https://github.com/kolkov/ngx-gallery
+
+```
+cd client/
+npm install @kolkov/ngx-gallery --legacy-peer-deps
+npm audit fix
+```
