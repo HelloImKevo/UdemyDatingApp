@@ -1331,3 +1331,17 @@ cd client/
 npm install @kolkov/ngx-gallery --legacy-peer-deps
 npm audit fix
 ```
+
+
+# Section 10: Updating Resources
+
+## Updating Resources: Learning Goals
+
+Implement persistence when updating resources in the API and gaining an
+understanding of:
+1. Angular Template forms
+2. The `CanDeactivate` Route Guard
+3. The `@ViewChild` decorator
+4. Persisting changes to the API
+5. Adding loading indicators to the client app
+6. Caching data in Angular services
