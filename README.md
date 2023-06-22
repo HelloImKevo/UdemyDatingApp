@@ -861,7 +861,7 @@ to do things like update your code to fix breaking changes in a dependency, for 
 or to add a new configuration option or framework to an existing project.
 
 Schematics that are included in the `@schematics/angular` collection are run by default 
-by the commands ng generate and ng add.  
+by the commands `ng generate` and `ng add`.  
 
 https://angular.io/guide/schematics  
 
@@ -889,6 +889,18 @@ And let's install a font package to make our UI classy:
 ```
 npm install font-awesome
 ```
+
+And let's also install NGX Spinner:
+```
+npm install ngx-spinner@14.0.0 --save
+```
+
+See also:  
+https://github.com/Napster2210/ngx-spinner  
+https://napster2210.github.io/ngx-spinner/  
+
+**June 22, 2023 Update**: I ran `npm audit fix` which updated a few of the dependencies
+that were reported with vulnerabilities and changed the contents of `package-lock.json`.
 
 
 ## Using HTTPS in Angular (MacOS)
