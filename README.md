@@ -1357,3 +1357,52 @@ understanding of:
 4. Persisting changes to the API
 5. Adding loading indicators to the client app
 6. Caching data in Angular services
+
+
+# Section 11: Adding Photo Upload Functionality
+
+## Adding Photo Upload Functionality: Learning Goals
+
+Implement photo upload functionality in the application and gain an
+understanding of the following:
+1. Photo storage options
+2. Adding related entities
+3. Using a 3rd party API
+4. Using the Debugger (again!)
+5. Updating and deleting resources
+6. What to return when creating resources in a REST based API
+
+Photo Storage with Cloudinary:  
+https://cloudinary.com/
+
+## Image Upload Arch Flow
+
+1. Client uploads photo to API with JTW token
+2. Server uploads the photo to Cloudinary
+3. Cloudinary stores photo and sends response
+4. API saves photo URL and public ID to DB
+5. Saved in DB and given auto-generated ID
+6. 201 Created Response sent to client with location header
+
+### NuGet: Installing CloudinaryDotNet
+
+Open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet" and click on the
+option that reads "NuGet: Open NuGet Gallery".
+
+Look for "cloudinary", and install "CloudinaryDotNet" by Cloudinary.
+I selected version `1.20.0`.
+
+Additionally, I added `API/appsettings.json` to the project `.gitignore` file.
+This is where we will store the Cloudinary secret API Keys.
+This is the original contents of the file for reference:
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+```
