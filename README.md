@@ -1406,3 +1406,33 @@ This is the original contents of the file for reference:
   "AllowedHosts": "*"
 }
 ```
+
+## Installing Ng2 File Upload
+
+https://github.com/valor-software/ng2-file-upload  
+
+```
+cd client/
+npm install ng2-file-upload@2.0.0-3 --legacy-peer-deps
+```
+
+NOTE: Using `npm install ng2-file-upload@next --legacy-peer-deps` will result
+in these compiler errors:
+```
+Error: node_modules/ng2-file-upload/file-upload/file-drop.directive.d.ts:19:18 - error TS2707: Generic type 'DirectiveDeclaration' requires between 6 and 8 type arguments.
+
+19     static ɵdir: i0.DirectiveDeclaration<FileDropDirective, "[ng2FileDrop]", never, { "uploader": "uploader"; }, { "fileOver": "fileOver"; "onFileDrop": "onFileDrop"; }, never, never, false, never>;
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Error: node_modules/ng2-file-upload/file-upload/file-select.directive.d.ts:14:18 - error TS2707: Generic type 'DirectiveDeclaration' requires between 6 and 8 type arguments.
+
+14     static ɵdir: i0.DirectiveDeclaration<FileSelectDirective, "[ng2FileSelect]", never, { "uploader": "uploader"; }, { "onFileSelected": "onFileSelected"; }, never, never, false, never>;
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on https://localhost:4200/ **
+
+
+✖ Failed to compile.
+```
