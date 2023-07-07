@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
@@ -32,13 +32,12 @@ export class AccountService {
    * @param model The username and password to attempt to log in to an
    * existing account.
    */
-  login(model: any) {
+  login(model: any): Observable<void> {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);
         }
       })
     );
@@ -49,7 +48,7 @@ export class AccountService {
    *
    * @param model The username and password to register as a new 'User'.
    */
-  registerApi(model: any) {
+  registerApi(model: any): Observable<void> {
     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
       // In RxJS, a projection function is a function that transforms the data
       // emitted by an Observable into a new form. A projection function can be
@@ -58,8 +57,7 @@ export class AccountService {
       // streams of data in a flexible and powerful way.
       map(user => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);
         }
         // We don't need the information returned from this projection function.
         // But if we wanted the user, we can add this:
@@ -68,7 +66,8 @@ export class AccountService {
     );
   }
 
-  setCurrentUser(user: User) {
+  setCurrentUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
