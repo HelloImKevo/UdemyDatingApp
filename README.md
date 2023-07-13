@@ -53,6 +53,22 @@ configured for SSH, and you are now attempting to use the same repo with Git
 Credential Manager - this will be significantly more complex to configure.
 
 
+# Screenshot References
+
+![Dashboard](Screenshots/app-01.png)
+
+![Edit Profile](Screenshots/app-06.png)
+
+
+# Debugging with VS Code
+
+![Debugging 01](Screenshots/debug-01.png)
+
+![Debugging 02](Screenshots/debug-02.png)
+
+![Debugging 03](Screenshots/debug-03.png)
+
+
 # Helpful Quick References
 
 ## Angular App and API Quick Start
