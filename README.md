@@ -1452,3 +1452,16 @@ Error: node_modules/ng2-file-upload/file-upload/file-select.directive.d.ts:14:18
 
 ✖ Failed to compile.
 ```
+
+
+# Section 12: Reactive Forms
+
+## Reactive Forms: Learning Goals
+
+Implement more advanced forms using Reactive Forms in Angular and understand
+how to:
+1. Use Reactive Forms
+2. Use Angular Validation for inputs
+3. Implement custom validators
+4. Implement reusable form controls
+5. Working with Date inputs
