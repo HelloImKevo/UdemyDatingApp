@@ -3,10 +3,43 @@
 
   <hr>
 
+  <div class="mb-3">
+    <label style="margin-right:10px">I am a: </label>
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" value="male" formControlName="gender">
+      Male
+    </label>
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input ms-3" value="female" formControlName="gender">
+      Female
+    </label>
+  </div>
+
   <!-- Username Field -->
   <app-text-input
     [formControl]="$any(registerForm.controls['username'])" 
     [label]="'Username'"></app-text-input>
+
+  <!-- Known As Field -->
+  <app-text-input
+    [formControl]="$any(registerForm.controls['knownAs'])" 
+    [label]="'Known As'"></app-text-input>
+
+  <!-- Date of Birth Field -->
+  <app-date-picker
+    [maxDate]="maxDate"
+    [formControl]="$any(registerForm.controls['dateOfBirth'])" 
+    [label]="'Date of Birth'"></app-date-picker>
+
+  <!-- City Field -->
+  <app-text-input
+    [formControl]="$any(registerForm.controls['city'])" 
+    [label]="'City'"></app-text-input>
+
+  <!-- Country Field -->
+  <app-text-input
+    [formControl]="$any(registerForm.controls['country'])" 
+    [label]="'Country'"></app-text-input>
 
   <!-- Password Field -->
   <app-text-input
