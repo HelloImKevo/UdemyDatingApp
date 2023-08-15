@@ -1465,3 +1465,46 @@ how to:
 3. Implement custom validators
 4. Implement reusable form controls
 5. Working with Date inputs
+
+
+# Section 13: Paging, Sorting and Filtering
+
+## Paging, Sorting and Filtering: Learning Goals
+
+Implement paging, sorting, and filtering, and gain an understanding of the
+following: 
+1. How to implement pagination on the API & client
+2. Deferred Execution using IQueryable
+3. How to implement filtering on the API & client
+4. How to implement sorting on the API & client
+5. Using Action Filters
+6. Adding a TimeAgo pipe
+7. Implement caching in the client for paginated resources
+
+### Pagination: Why?
+- Helps avoid performance problems.
+- Parameters are passed by query string:
+  - https://localhost:5001/api/users?pageNumber=1&pageSize=5
+- Page size should be limited.
+- We should always paginate the results.
+
+### Deferred Execution: What is it?
+We build up an expression tree and we store this as an `IQueryable` of type
+whatever:
+```csharp
+IQueryable<User> --> var query = context.Users
+  .Where(x => x.Gender == gender)
+  .OrderBy(x => x.UserName)
+  .Take(5)
+  .Skip(5)
+  .AsQueryable();
+```
+
+The query only gets **executed** when we use a `ToListAsync()`:
+```csharp
+query.ToListAsync()
+query.ToArrayAsync()
+query.ToDictionary()
+
+query.Count()
+```
