@@ -1,6 +1,7 @@
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -24,10 +25,19 @@ namespace API.Controllers
             _photoService = photoService;
         }
 
+        /// <summary>
+        /// Expects a URL like: api/users?pageNumber=2&pageSize=5
+        /// </summary>
+        /// <param name="userParams"></param>
+        /// <returns>A 200 Response with a paged list of users, if the client is Authorized.
+        /// If the user is Not Authorized, returns a 401 Unauthorized.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
+            var users = await _userRepository.GetMembersAsync(userParams);
+
+            Response.AddPaginationHeader(new PaginationHeader(
+                users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages));
 
             return Ok(users);
         }

@@ -122,7 +122,10 @@ up a sort of "Global Object Search" form field, and you can type the name of an 
 our `AppUser.cs`, and then press RETURN to open the file. Super-handy to have!
 
 More details:
-https://stackoverflow.com/questions/29613191/intellij-shift-shift-shortcut-in-visual-studio-global-search
+https://stackoverflow.com/questions/29613191/intellij-shift-shift-shortcut-in-visual-studio-global-search  
+
+Under **Settings > CodeLens**, turn off "Show Main Code Lens". It adds extraneous noise to every 
+method signature in the editor UI, with a bunch of "N references" indicators everywhere.
 
 ## Dotnet Commands
 

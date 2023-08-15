@@ -13,8 +13,12 @@ namespace API.Extensions
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
+            // Pagination header will be serialized like:
+            // {"currentPage":1,"itemsPerPage":10,"totalItems":14,"totalPages":2}
             response.Headers.Add("Pagination", JsonSerializer.Serialize(header, jsonOptions));
-            // TODO: This needs to be validated as "Access-Control-Expose-Headers"
+
+            // HeaderNames works as expected. Further discussions here:
+            // https://stackoverflow.com/questions/11037004/are-there-any-constants-for-the-default-http-headers
             response.Headers.Add(HeaderNames.AccessControlExposeHeaders, "Pagination");
         }
     }
