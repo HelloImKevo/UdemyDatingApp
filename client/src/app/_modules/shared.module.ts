@@ -7,6 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 /**
  * Created with command:
@@ -25,6 +26,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     NgxSpinnerModule.forRoot({
       type: 'line-scale-party'
     }),
+    PaginationModule.forRoot(),
     TabsModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
@@ -36,6 +38,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileUploadModule,
     NgxGalleryModule,
     NgxSpinnerModule,
+    PaginationModule,
     TabsModule,
     ToastrModule
   ]
