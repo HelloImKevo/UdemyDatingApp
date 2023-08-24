@@ -19,6 +19,22 @@
             {
                 "Url": "https://randomuser.me/api/portraits/women/55.jpg",
                 "IsMain": false
+            },
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1688158813/da-net7/kajha3pnqqd609cexrgy.jpg",
+                "IsMain": false
+            },
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1688159035/da-net7/j14kmvouyzwalkkp4kic.jpg",
+                "IsMain": false
+            },
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1688159818/da-net7/hzhcnhhjxsb6kjguzdpb.jpg",
+                "IsMain": false
+            },
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1688159868/da-net7/urrlq4ykwuog2xzkldvh.png",
+                "IsMain": false
             }
         ]
     },
@@ -111,6 +127,25 @@
             {
                 "Url": "https://randomuser.me/api/portraits/women/85.jpg",
                 "IsMain": false
+            }
+        ]
+    },
+    {
+        "UserName": "Beatrice",
+        "Gender": "female",
+        "DateOfBirth": "1986-01-12",
+        "KnownAs": "Beatrice",
+        "Created": "2020-04-30",
+        "LastActive": "2022-04-21",
+        "Introduction": "Enjoys hiking in the woods.",
+        "LookingFor": "A surfer dude.",
+        "Interests": "Hiking in the woods and bird watching.",
+        "City": "Jacksonville",
+        "Country": "USA",
+        "Photos": [
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1690578912/da-net7/hugvectamxyml0vuwlah.png",
+                "IsMain": true
             }
         ]
     },
@@ -226,6 +261,25 @@
             {
                 "Url": "https://randomuser.me/api/portraits/men/57.jpg",
                 "IsMain": false
+            }
+        ]
+    },
+    {
+        "UserName": "Tom",
+        "Gender": "male",
+        "DateOfBirth": "1980-03-26",
+        "KnownAs": "Tom",
+        "Created": "2020-02-25",
+        "LastActive": "2023-06-11",
+        "Introduction": "A fun guy.",
+        "LookingFor": "A happy woman.",
+        "Interests": "Walking dogs and surfing.",
+        "City": "London",
+        "Country": "UK",
+        "Photos": [
+            {
+                "Url": "https://res.cloudinary.com/djrmfrnlc/image/upload/v1690578685/da-net7/yzz66nw393g467un0gnw.png",
+                "IsMain": true
             }
         ]
     }
