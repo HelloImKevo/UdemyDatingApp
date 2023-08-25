@@ -27,5 +27,7 @@ namespace API.Helpers
         /// Maximum age (in years) of the member, inclusive.
         /// </summary>
         public int MaxAge { get; set; } = 100;
+
+        public string OrderBy { get; set; } = "lastActive";
     }
 }
