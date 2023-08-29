@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CommonModule } from '@angular/common';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -18,6 +19,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 @NgModule({
   declarations: [],
   imports: [
+    ButtonsModule,
     CommonModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -33,6 +35,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     })
   ],
   exports: [
+    ButtonsModule,
     BsDatepickerModule,
     BsDropdownModule,
     FileUploadModule,
