@@ -28,12 +28,13 @@
 
         <div>
           <strong>Last Active:</strong>
-          <p>{{member.lastActive}}</p>
+          <!-- TODO: Using UTC timezone as a temporary solution -->
+          <p>{{member.lastActive + 'Z' | timeago}}</p>
         </div>
 
         <div>
           <strong>Member since:</strong>
-          <p>{{member.created}}</p>
+          <p>{{member.created | date: 'longDate'}}</p>
         </div>
       </div>
 

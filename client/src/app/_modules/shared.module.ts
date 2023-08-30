@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TimeagoModule } from "ngx-timeago";
 import { ToastrModule } from 'ngx-toastr';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -30,6 +31,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     }),
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
+    TimeagoModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
@@ -43,6 +45,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     NgxSpinnerModule,
     PaginationModule,
     TabsModule,
+    TimeagoModule,
     ToastrModule
   ]
 })
