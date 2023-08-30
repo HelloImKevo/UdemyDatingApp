@@ -1511,3 +1511,15 @@ query.ToDictionary()
 
 query.Count()
 ```
+
+## Installing Ngx TimeAgo
+
+https://ihym.github.io/ngx-timeago/  
+
+https://www.npmjs.com/package/ngx-timeago  
+
+```
+cd client/
+npm show ngx-timeago versions
+npm install ngx-timeago@2.0.0 --save
+```
