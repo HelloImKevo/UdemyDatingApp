@@ -11,6 +11,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   providedIn: 'root'
 })
 export class BusyService {
+
+  public static LOADING_PROGRESS_INTERCEPTOR_MILLIS: number = 500;
+
   busyRequestCount: number = 0;
 
   constructor(private spinnerService: NgxSpinnerService) { }
