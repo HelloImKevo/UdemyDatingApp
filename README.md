@@ -1523,3 +1523,15 @@ cd client/
 npm show ngx-timeago versions
 npm install ngx-timeago@2.0.0 --save
 ```
+
+
+# Section 14: Adding the Like User feature
+
+## Adding the Like User feature: Learning Goals
+
+Implement the 'Like User' functionality and an understanding of the following: 
+1. Many to many relationship
+2. Configuring entities in the DbContext:
+   An `AppUser` can be liked by many `AppUsers` (and vice versa)
+3. Implement a solution using the Fluent API
+

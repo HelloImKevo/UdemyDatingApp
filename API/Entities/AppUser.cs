@@ -30,6 +30,9 @@ namespace API.Entities
 
     [2023-04-28] To drop the database, Run:
       dotnet ef database drop
+
+    [2023-09-01] Run:
+      dotnet ef migrations add LikeEntityAdded
      */
     public class AppUser
     {
@@ -88,5 +91,15 @@ namespace API.Entities
         /// Collection of the User's uploaded Photos.
         /// </summary>
         public List<Photo> Photos { get; set; } = new();
+
+        //
+        // Summary:
+        //     List of users that like this User.
+        public List<UserLike> LikedByUsers { get; set; }
+
+        //
+        // Summary:
+        //     List of users that this User has Liked.
+        public List<UserLike> LikedUsers { get; set; }
     }
 }
