@@ -5,6 +5,8 @@ import { Member } from '../_models/member';
 import { Observable, map, of } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { UserParams } from '../_models/userParams';
+import { AccountService } from './account.service';
+import { User } from '../_models/user';
 
 /**
  * Created with command:
@@ -19,8 +21,36 @@ export class MembersService {
   baseUrl = environment.apiUrl;
   members: Member[] = [];
   memberCache = new Map();
+  user: User | undefined;
+  userParams: UserParams | undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private accountService: AccountService) {
+    this.accountService.currentUser$.subscribe({
+      next: user => {
+        if (user) {
+          this.userParams = new UserParams(user);
+          this.user = user;
+        }
+      }
+    });
+  }
+
+  getUserParams(): UserParams | undefined {
+    return this.userParams;
+  }
+
+  setUserParams(params: UserParams): void {
+    this.userParams = params;
+  }
+
+  resetUserParams(): UserParams | undefined {
+    if (this.user) {
+      this.userParams = new UserParams(this.user);
+      return this.userParams;
+    }
+
+    return undefined;
+  }
 
   getMembers(userParams: UserParams): Observable<PaginatedResult<Member[]>> {
     const response = this.memberCache.get(Object.values(userParams).join('-'));

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
-import { Observable, of } from 'rxjs';
-import { User } from '../_models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -41,6 +39,9 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
+    // Clear the in-memory model that stores the username and password for
+    // the NG Submit login form.
+    this.model = {};
     // Navigate to Home page.
     this.router.navigateByUrl('/');
   }
