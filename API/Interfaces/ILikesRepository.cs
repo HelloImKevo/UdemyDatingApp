@@ -1,5 +1,6 @@
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 
 namespace API.Interfaces
 {
@@ -22,8 +23,9 @@ namespace API.Interfaces
 
         //
         // Summary:
-        //     [predicate] - Do you want to get the user they have "Liked", 
-        //     or the user they are "Liked By".
-        Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId);
+        //     Filter params that include a predicate (Do you want to get
+        //     the list of your Likes, or a list of users that Like You?)
+        //     and the requester's User ID.
+        Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams);
     }
 }
