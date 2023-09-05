@@ -33,11 +33,14 @@ namespace API.Data
                 likes = likes.Where(like => like.SourceUserId == userId);
                 users = likes.Select(like => like.TargetUser);
             }
-
-            if (predicate == "likedby")
+            else if (predicate == "likedBy")
             {
                 likes = likes.Where(like => like.TargetUserId == userId);
                 users = likes.Select(like => like.SourceUser);
+            }
+            else
+            {
+                return null;
             }
 
             return await users.Select(user => new LikeDto
