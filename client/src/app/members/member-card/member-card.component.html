@@ -2,6 +2,7 @@
   <div class="card-img-wrapper">
     <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top">
     <ul class="list-inline member-icons animate text-center">
+
       <!-- 'Profile' Button -->
       <li class="list-inline-item">
         <button routerLink="/members/{{member.userName}}" class="btn btn-primary" style="--bs-btn-padding-x: 0.875rem">
@@ -11,7 +12,12 @@
 
       <!-- 'Like' Button -->
       <li class="list-inline-item">
-        <button class="btn btn-primary"><i class="fa fa-heart"></i></button>
+        <button (click)="addLike(member)" class="btn btn-primary"><i class="fa fa-heart"></i></button>
+      </li>
+
+      <!-- 'Un-Like' Button -->
+      <li class="list-inline-item">
+        <button (click)="removeLike(member)" class="btn btn-primary"><i class="fa fa-heart-o"></i></button>
       </li>
 
       <!-- 'Message' Button -->

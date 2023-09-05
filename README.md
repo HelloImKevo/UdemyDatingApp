@@ -909,6 +909,9 @@ And let's install a font package to make our UI classy:
 npm install font-awesome
 ```
 
+Here's a complete list of the Icons available in version `4.7.0` of Font Awesome:  
+https://fontawesome.com/v4/icons/  
+
 And let's also install NGX Spinner:
 ```
 npm install ngx-spinner@14.0.0 --save

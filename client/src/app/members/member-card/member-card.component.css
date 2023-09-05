@@ -26,6 +26,11 @@
     opacity: 0;
 }
 
+.list-inline-item {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
 .card-img-wrapper:hover .member-icons {
     bottom: 0;
     opacity: 1;
