@@ -26,10 +26,14 @@ export class MembersService {
 
   constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.currentUser$.subscribe({
-      next: user => {
-        if (user) {
-          this.userParams = new UserParams(user);
-          this.user = user;
+      next: loggedInUser => {
+        if (loggedInUser) {
+          this.userParams = new UserParams(loggedInUser);
+          this.user = loggedInUser;
+        } else {
+          // Clear the member cache when the user is logged out (this should
+          // also take effect after a new user has registered).
+          this.memberCache = new Map();
         }
       }
     });
@@ -123,8 +127,8 @@ export class MembersService {
     return this.http.delete(this.baseUrl + 'likes/' + username, {});
   }
 
-  getLikes(predicate: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'likes?predicate=' + predicate);
+  getLikes(predicate: string): Observable<Member[]> {
+    return this.http.get<Member[]>(this.baseUrl + 'likes?predicate=' + predicate);
   }
 
   private getPaginatedResult<T>(url: string, params: HttpParams): Observable<PaginatedResult<T>> {

@@ -1,1 +1,28 @@
-<p>lists works!</p>
+<div class="text-center mt-3">
+  <h2>{{predicate === 'liked' ? 'Members I like' : 'Members who like me'}}</h2>
+</div>
+
+<div class="container mt-3">
+  <div class="d-flex">
+    <!-- Radio Button Group -->
+    <div class="btn-group" name="predicate">
+      <!-- Members I Like -->
+      <button class="btn btn-primary"
+        btnRadio="liked"
+        [(ngModel)]="predicate"
+        (click)="loadLikes()">Members I Like</button>
+
+      <!-- Members Who Like Me -->
+      <button class="btn btn-primary"
+        btnRadio="likedBy"
+        [(ngModel)]="predicate"
+        (click)="loadLikes()">Members Who Like Me</button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-2" *ngFor="let member of members">
+      <app-member-card [member]="member"></app-member-card>
+    </div>
+  </div>
+</div>
