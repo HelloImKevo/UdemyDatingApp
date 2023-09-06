@@ -33,6 +33,9 @@ namespace API.Entities
 
     [2023-09-01] Run:
       dotnet ef migrations add LikeEntityAdded
+
+    [2023-09-06] Run:
+      dotnet ef migrations add MessageEntityAdded
      */
     public class AppUser
     {
@@ -101,5 +104,15 @@ namespace API.Entities
         // Summary:
         //     List of users that this User has Liked.
         public List<UserLike> LikedUsers { get; set; }
+
+        //
+        // Summary:
+        //     List of messages that this User has sent to other users.
+        public List<Message> MessagesSent { get; set; }
+
+        //
+        // Summary:
+        //     List of messages that this User has received from other users.
+        public List<Message> MessagesReceived { get; set; }
     }
 }

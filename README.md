@@ -1538,3 +1538,12 @@ Implement the 'Like User' functionality and an understanding of the following:
    An `AppUser` can be liked by many `AppUsers` (and vice versa)
 3. Implement a solution using the Fluent API
 
+
+# Section 15: Adding the 'Messaging' feature
+
+## Messages Feature: Learning Goals
+
+Implement the Messaging functionality and gain an understanding of the following:
+1. More many-to-many relationships
+2. Using query params in Angular
+3. Using Route resolvers in Angular
