@@ -22,7 +22,13 @@ namespace API.Interfaces
         //     Fetch a specific [Message] by its Primary Key.
         Task<Message> GetMessage(int id);
 
-        Task<PagedList<MessageDto>> GetMessagesForUser();
+        //
+        // Summary:
+        //     Fetch the list of [Messages] for the currently authenticated user
+        //     filtered according to the passed [MessageParams]. You can specify
+        //     "Inbox", "Outbox" or "Unread" in the params (if nothing is specified,
+        //     it will default to "Unread" messages).
+        Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
 
         Task<IEnumerable<MessageDto>> GetMessageThread(int currentUserId, int recipientId);
 

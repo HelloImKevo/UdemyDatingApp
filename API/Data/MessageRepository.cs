@@ -2,15 +2,19 @@ using API.DTOs;
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace API.Data
 {
     public class MessageRepository : IMessageRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public MessageRepository(DataContext context)
+        public MessageRepository(DataContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -29,9 +33,25 @@ namespace API.Data
             return await _context.Messages.FindAsync(id);
         }
 
-        public Task<PagedList<MessageDto>> GetMessagesForUser()
+        public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
-            throw new NotImplementedException();
+            var query = _context.Messages
+                .OrderByDescending(x => x.MessageSent)
+                .AsQueryable();
+
+            query = messageParams.Container switch
+            {
+                "Inbox" => query.Where(u => u.RecipientUsername == messageParams.Username),
+                "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username),
+                _ => query.Where(u => u.RecipientUsername == messageParams.Username && u.DateRead == null)
+            };
+
+            // Extension method to project from a queryable using the provided mapping engine.
+            // Projections are only calculated once and cached.
+            var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<MessageDto>
+                .CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
         }
 
         public Task<IEnumerable<MessageDto>> GetMessageThread(int currentUserId, int recipientId)
