@@ -30,7 +30,12 @@ namespace API.Interfaces
         //     it will default to "Unread" messages).
         Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
 
-        Task<IEnumerable<MessageDto>> GetMessageThread(int currentUserId, int recipientId);
+        //
+        // Summary:
+        //     Builds a fully-populated collection of the messages exchanged between
+        //     two users, including the Photo URL (for both the Sender and the Recipient)
+        //      and Date/Time information.
+        Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName);
 
         Task<bool> SaveAllAsync();
     }
