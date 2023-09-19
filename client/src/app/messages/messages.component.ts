@@ -27,6 +27,7 @@ export class MessagesComponent implements OnInit {
     this.loadMessages();
   }
 
+  // TODO: The 'Unread' radio button may not be working, or messages are not being updated as "Read"
   loadMessages(): void {
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
       next: response => {
