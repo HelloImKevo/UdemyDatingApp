@@ -35,4 +35,8 @@ export class MessageService {
 
     return getPaginatedResult<Message[]>(this.http, this.baseUrl + 'messages', params);
   }
+
+  getMessageThread(username: string): Observable<Message[]> {
+    return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + username);
+  }
 }

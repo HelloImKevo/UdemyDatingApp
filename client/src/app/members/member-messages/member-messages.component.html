@@ -1,0 +1,12 @@
+<!-- Element shown when there are no messages -->
+<div class="row" *ngIf="!messages || messages.length === 0">
+  <h3>No messages exchanged with this member</h3>
+</div>
+
+<div *ngIf="messages && messages.length > 0">
+  <h4>Messages exchanged with this member:</h4>
+
+  <p></p>
+
+  <p *ngFor="let message of messages">{{message.content}}</p>
+</div>
