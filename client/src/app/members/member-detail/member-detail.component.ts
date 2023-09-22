@@ -43,6 +43,12 @@ export class MemberDetailComponent implements OnInit {
     ];
 
     this.loadMember();
+
+    this.route.queryParams.subscribe({
+      next: params => {
+        params['tab'] && this.selectTab(params['tab'])
+      }
+    })
   }
 
   loadMember(): void {
@@ -56,6 +62,12 @@ export class MemberDetailComponent implements OnInit {
         this.galleryImages = this.getImages();
       }
     })
+  }
+
+  selectTab(heading: string): void {
+    if (this.memberTabs) {
+      this.memberTabs.tabs.find(x => x.heading === heading)!.active = true;
+    }
   }
 
   onTabActivated(data: TabDirective): void {
