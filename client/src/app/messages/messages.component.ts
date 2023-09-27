@@ -20,6 +20,7 @@ export class MessagesComponent implements OnInit {
   container = 'Unread';
   pageNumber = 1;
   pageSize = 5;
+  loading = false;
 
   constructor(private messageService: MessageService) { }
 
@@ -29,10 +30,12 @@ export class MessagesComponent implements OnInit {
 
   // TODO: The 'Unread' radio button may not be working, or messages are not being updated as "Read"
   loadMessages(): void {
+    this.loading = true;
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
       next: response => {
         this.messages = response.result;
         this.pagination = response.pagination;
+        this.loading = false;
       }
     });
   }
