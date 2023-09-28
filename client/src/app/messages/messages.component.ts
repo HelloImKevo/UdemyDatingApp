@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Message } from '../_models/message';
 import { Pagination } from '../_models/pagination';
 import { MessageService } from '../_services/message.service';
+import { ToastrService } from 'ngx-toastr';
 
 /**
  * Created with command:
@@ -22,7 +23,7 @@ export class MessagesComponent implements OnInit {
   pageSize = 5;
   loading = false;
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadMessages();
@@ -38,6 +39,16 @@ export class MessagesComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  deleteMessage(id: number): void {
+    this.messageService.deleteMessage(id).subscribe({
+      next: () => {
+        // Remove the message element from our local array in the client.
+        this.messages?.splice(this.messages.findIndex(m => m.id === id), 1);
+        this.toastr.warning('Message deleted');
+      }
+    })
   }
 
   pageChanged(event: any): void {

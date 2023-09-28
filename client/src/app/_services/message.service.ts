@@ -45,4 +45,8 @@ export class MessageService {
       recipientUsername: username, content
     });
   }
+
+  deleteMessage(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'messages/' + id);
+  }
 }

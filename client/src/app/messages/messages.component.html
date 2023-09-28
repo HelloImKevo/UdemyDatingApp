@@ -72,8 +72,12 @@
           </div>
         </td>
 
-        <td>{{message.messageSent | timeago}}</td>
-        <td><button class="btn btn-danger">Delete</button></td>
+        <td>{{message.messageSent + 'Z' | timeago}}</td>
+        <td>
+          <!-- Use stop propagation to prevent navigating the user to the Member Details page -->
+          <button
+            (click)="$event.stopPropagation()"
+            (click)="deleteMessage(message.id)" class="btn btn-danger">Delete</button></td>
       </tr>
     </tbody>
   </table>
