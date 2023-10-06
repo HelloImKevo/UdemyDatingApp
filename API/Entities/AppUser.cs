@@ -1,4 +1,4 @@
-using API.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
@@ -37,20 +37,8 @@ namespace API.Entities
     [2023-09-06] Run:
       dotnet ef migrations add MessageEntityAdded
      */
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        /// <summary>
-        /// Primary Key for the User.
-        /// </summary>
-        public int Id { get; set; }
-
-        // "UserName" is used (instead of username) to prevent refactoring headaches later on.
-        public string UserName { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
-
         public DateOnly DateOfBirth { get; set; }
 
         /// <summary>
@@ -114,5 +102,7 @@ namespace API.Entities
         // Summary:
         //     List of messages that this User has received from other users.
         public List<Message> MessagesReceived { get; set; }
+
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

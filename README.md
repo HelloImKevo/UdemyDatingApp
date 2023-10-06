@@ -1547,3 +1547,25 @@ Implement the Messaging functionality and gain an understanding of the following
 1. More many-to-many relationships
 2. Using query params in Angular
 3. Using Route resolvers in Angular
+
+
+# Section 16: Identity and Role Management
+
+## Identity and Role Management: Learning Goals
+
+Refactor our code to use ASP.NET Identity and gain an understanding of the following:
+1. Using .Net Identity
+2. Role management
+3. Policy based authorization
+4. UserManager<T>
+5. SignInManager<T>
+6. RoleManager<T>
+
+### Why change our code?
+- Identity and role management is battle-hardened, written and tested by Microsoft.
+- Comes with a password hasher with 10,000 salt iterations by default.
+- Full framework for managing members and roles.
+- Provides an Entity Framework schema to create the needed tables.
+- Highly customizable.
+
+Note that ASP.NET Identity is different from **Identity Server**.
