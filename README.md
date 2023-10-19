@@ -467,6 +467,9 @@ install that also (using the same dotnet version). Then, the CS Project file sho
 </ItemGroup>
 ```
 
+We're also going to need "Microsoft.AspNetCore.Identity.EntityFrameworkCore" by Microsoft.
+Install version `7.0.0`.
+
 ### Oops! Something isn't right...
 We installed the wrong SQLite framework -- we wanted simply `Sqlite` instead of `Sqlite.Core`... 😩
 Delete the `<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.4" />`
