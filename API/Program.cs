@@ -1,6 +1,8 @@
 using API.Data;
+using API.Entities;
 using API.Extensions;
 using API.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +37,9 @@ try
     // Asynchronously applies any pending migrations for the context to the database.
     // Will create the database if it does not already exist.
     await context.Database.MigrateAsync();
-    // await Seed.SeedUsers(context);
+
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    await Seed.SeedUsers(userManager);
 }
 catch (Exception ex)
 {

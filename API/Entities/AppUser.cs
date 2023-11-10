@@ -42,6 +42,9 @@ namespace API.Entities
 
     Note: The above action drops the PasswordSalt column and the entity
     framework logs a warning about 'an operation was scaffolded'.
+
+    [2023-11-10] Dropped the database after updating Seed.cs:
+      dotnet ef database drop
      */
     public class AppUser : IdentityUser<int>
     {
