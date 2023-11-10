@@ -35,7 +35,7 @@ try
     // Asynchronously applies any pending migrations for the context to the database.
     // Will create the database if it does not already exist.
     await context.Database.MigrateAsync();
-    await Seed.SeedUsers(context);
+    // await Seed.SeedUsers(context);
 }
 catch (Exception ex)
 {

@@ -36,6 +36,12 @@ namespace API.Entities
 
     [2023-09-06] Run:
       dotnet ef migrations add MessageEntityAdded
+    
+    [2023-10-27] Run:
+      dotnet ef migrations add IdentityAdded
+
+    Note: The above action drops the PasswordSalt column and the entity
+    framework logs a warning about 'an operation was scaffolded'.
      */
     public class AppUser : IdentityUser<int>
     {
