@@ -23,6 +23,7 @@ namespace API.Extensions
             .AddRoleManager<RoleManager<AppRole>>()
             .AddEntityFrameworkStores<DataContext>();
 
+            // Authentication always comes before Authorization.
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -35,6 +36,13 @@ namespace API.Extensions
                         ValidateAudience = false
                     };
                 });
+
+            // Add policy-based role authorizations.
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
+            });
 
             return services;
         }
