@@ -32,6 +32,32 @@ namespace API.Controllers
             return Ok(users);
         }
 
+        [HttpPost("edit-roles/{username}")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
+        {
+            if (string.IsNullOrEmpty(roles)) return BadRequest("You must select at least one role");
+
+            // TODO: Sanitize the input to prevent SQLi attacks!
+            var selectedRoles = roles.Split(",").ToArray();
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null) return NotFound();
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            IdentityResult result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+
+            if (!result.Succeeded) return BadRequest("Failed to add to roles");
+
+            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+
+            if (!result.Succeeded) return BadRequest("Failed to remove from roles");
+
+            return Ok(await _userManager.GetRolesAsync(user));
+        }
+
         [HttpGet("photos-to-moderate")]
         [Authorize(Policy = "ModeratePhotoRole")]
         public ActionResult GetPhotosForModeration()
