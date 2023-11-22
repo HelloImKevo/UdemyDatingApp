@@ -10,6 +10,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 /**
  * Created with command:
@@ -25,6 +26,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     FileUploadModule,
+    ModalModule.forRoot(),
     NgxGalleryModule,
     NgxSpinnerModule.forRoot({
       type: 'line-scale-party'
@@ -41,6 +43,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BsDatepickerModule,
     BsDropdownModule,
     FileUploadModule,
+    ModalModule,
     NgxGalleryModule,
     NgxSpinnerModule,
     PaginationModule,
