@@ -1572,3 +1572,24 @@ Refactor our code to use ASP.NET Identity and gain an understanding of the follo
 - Highly customizable.
 
 Note that ASP.NET Identity is different from **Identity Server**.
+
+
+# Section 17: Adding support for SignalR
+
+## SignalR: Learning Goals
+
+Implement SignalR into our application and understand how to:
+1. Use and set up SignalR on both the API and the client
+2. Implement online presence
+3. Implement live chat between users
+
+### What is SignalR?
+- Open source library that provides real-time web functionality to apps
+- Good for Dashboards and Monitoring apps
+- Good for Collaborative apps (like whiteboards)
+- Good for apps that require notifications and chat apps
+- Handles connection (and re-connects) management automatically
+- Sends messages to all connected clients simultaneously
+- Sends messages to specific client groups of clients
+- Supports WebSockets, Server-Sent events, and Long polling
+- Offers a client side npm package
