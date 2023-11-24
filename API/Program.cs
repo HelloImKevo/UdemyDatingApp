@@ -22,6 +22,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowCredentials()
     .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 // These two pieces of middleware must be declared in this sequence.
