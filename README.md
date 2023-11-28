@@ -1593,3 +1593,13 @@ Implement SignalR into our application and understand how to:
 - Sends messages to specific client groups of clients
 - Supports WebSockets, Server-Sent events, and Long polling
 - Offers a client side npm package
+
+## Installing Microsoft SignalR
+
+https://www.npmjs.com/package/@microsoft/signalr
+
+```
+cd client/
+npm install @microsoft/signalr
+npm audit fix
+```
