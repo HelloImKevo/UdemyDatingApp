@@ -6,6 +6,7 @@ import { Member } from 'src/app/_models/member';
 import { Message } from 'src/app/_models/message';
 import { MembersService } from 'src/app/_services/members.service';
 import { MessageService } from 'src/app/_services/message.service';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 /**
  * Created with command:
@@ -28,7 +29,7 @@ export class MemberDetailComponent implements OnInit {
   messages: Message[] = [];
 
   constructor(private memberService: MembersService, private route: ActivatedRoute,
-    private messageService: MessageService) { }
+    private messageService: MessageService, public presenceService: PresenceService) { }
 
   ngOnInit(): void {
     this.galleryOptions = [
