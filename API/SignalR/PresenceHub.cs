@@ -7,14 +7,31 @@ namespace API.SignalR
     [Authorize]
     public class PresenceHub : Hub
     {
+        private const string KEY_GET_ONLINE_USERS = "GetOnlineUsers";
+
+        private readonly PresenceTracker _tracker;
+
+        public PresenceHub(PresenceTracker tracker)
+        {
+            _tracker = tracker;
+        }
+
         public override async Task OnConnectedAsync()
         {
+            await _tracker.UserConnected(Context.User.GetUsername(), Context.ConnectionId);
             await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUsername());
+
+            var currentUsers = await _tracker.GetOnlineUsers();
+            await Clients.All.SendAsync(KEY_GET_ONLINE_USERS, currentUsers);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            await _tracker.UserDisconnected(Context.User.GetUsername(), Context.ConnectionId);
             await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUsername());
+
+            var currentUsers = await _tracker.GetOnlineUsers();
+            await Clients.All.SendAsync(KEY_GET_ONLINE_USERS, currentUsers);
 
             await base.OnDisconnectedAsync(exception);
         }
