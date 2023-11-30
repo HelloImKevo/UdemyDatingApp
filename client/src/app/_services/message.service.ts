@@ -42,7 +42,9 @@ export class MessageService {
   }
 
   stopHubConnection(): void {
-    this.hubConnection?.stop().catch(error => console.log(error));
+    if (this.hubConnection) {
+      this.hubConnection.stop().catch(error => console.log(error));
+    }
   }
 
   /**

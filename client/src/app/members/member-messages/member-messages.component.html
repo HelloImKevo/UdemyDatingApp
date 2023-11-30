@@ -1,18 +1,18 @@
 <div class="card">
   <div class="card-body">
     <!-- Element shown when there are no messages -->
-    <div *ngIf="messages.length === 0">
+    <div *ngIf="(messageService.messageThread$ | async)?.length === 0">
       <h5>No messages exchanged with this member...</h5>
       
       <p>Say "Hi" by using the message box below!</p>
     </div>
 
-    <div *ngIf="messages.length > 0">
+    <div *ngIf="(messageService.messageThread$ | async)!.length > 0">
       <h4>Messages exchanged with this member:</h4>
     </div>
 
-    <ul *ngIf="messages.length > 0" class="chat">
-      <li *ngFor="let message of messages">
+    <ul *ngIf="(messageService.messageThread$ | async)!.length > 0" class="chat">
+      <li *ngFor="let message of (messageService.messageThread$ | async)">
         <div>
           <span class="chat-img float-end">
             <img class="rounded-circle"

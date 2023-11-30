@@ -19,11 +19,9 @@ export class MemberMessagesComponent implements OnInit {
 
   // Input decorator must be specified in HTML. Ex: [username]="member.userName"
   @Input() username?: string;
-  // Ex: [messages]="messages"
-  @Input() messages: Message[] = [];
   messageContent = '';
 
-  constructor(private messageService: MessageService) { }
+  constructor(public messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -33,8 +31,8 @@ export class MemberMessagesComponent implements OnInit {
 
     this.messageService.sendMessage(this.username, this.messageContent).subscribe({
       next: message => {
-        this.messages.push(message);
-        this.messageForm?.reset();
+        // this.messages.push(message);
+        // this.messageForm?.reset();
       }
     });
   }
