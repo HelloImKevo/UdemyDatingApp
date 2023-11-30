@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 import { Message } from '../_models/message';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { User } from '../_models/user';
@@ -39,6 +39,14 @@ export class MessageService {
     this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
     });
+
+    this.hubConnection.on('NewMessage', message => {
+      this.messageThread$.pipe(take(1)).subscribe({
+        next: messages => {
+          this.messageThreadSource.next([...messages, message]);
+        }
+      });
+    });
   }
 
   stopHubConnection(): void {
@@ -67,10 +75,10 @@ export class MessageService {
     return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + username);
   }
 
-  sendMessage(username: string, content: string): Observable<Message> {
-    return this.http.post<Message>(this.baseUrl + 'messages', {
+  async sendMessage(username: string, content: string): Promise<Message | undefined> {
+    return this.hubConnection?.invoke('SendMessage', {
       recipientUsername: username, content
-    });
+    }).catch(error => console.log(error));
   }
 
   deleteMessage(id: number): Observable<any> {
