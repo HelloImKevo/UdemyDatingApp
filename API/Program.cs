@@ -44,6 +44,11 @@ try
 
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+
+    // This will clear out stale SignalR Message Hub connections that can
+    // linger when the API server is killed or restarted unexpectedly.
+    // This is just a temporary solution for SQLite.
+    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
     await Seed.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
