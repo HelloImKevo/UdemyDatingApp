@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
+    /*
+    [2023-12-01] Run:
+      dotnet ef migrations add GroupsAdded
+     */
     public class MessageRepository : IMessageRepository
     {
         private readonly DataContext _context;
@@ -98,6 +102,28 @@ namespace API.Data
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public void AddGroup(Group group)
+        {
+            _context.Groups.Add(group);
+        }
+
+        public async Task<Connection> GetConnection(string connectionId)
+        {
+            return await _context.Connections.FindAsync(connectionId);
+        }
+
+        public void RemoveConnection(Connection connection)
+        {
+            _context.Connections.Remove(connection);
+        }
+
+        public async Task<Group> GetMessageGroup(string groupName)
+        {
+            return await _context.Groups
+                .Include(x => x.Connections)
+                .FirstOrDefaultAsync(x => x.Name == groupName);
         }
     }
 }

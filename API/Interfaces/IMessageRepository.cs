@@ -38,5 +38,16 @@ namespace API.Interfaces
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName);
 
         Task<bool> SaveAllAsync();
+
+        // Add a SignalR message group to our hub.
+        void AddGroup(Group group);
+
+        // Get a SignalR hub Connection instance.
+        Task<Connection> GetConnection(string connectionId);
+
+        // Remove a SignalR message group connection.
+        void RemoveConnection(Connection connection);
+
+        Task<Group> GetMessageGroup(string groupName);
     }
 }
