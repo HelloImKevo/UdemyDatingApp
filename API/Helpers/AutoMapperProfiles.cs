@@ -31,6 +31,11 @@ namespace API.Helpers
                     dest => dest.RecipientPhotoUrl,
                     // Map the Recipient's "Main" photo to the MessageDto.RecipientPhotoUrl.
                     opt => opt.MapFrom(src => src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url));
+            // Make sure our dates are always communicated (serialized) with a Z (Zulu meridian)
+            // according to ISO 8601 spec for UTC.
+            CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+            CreateMap<DateTime?, DateTime?>().ConvertUsing(d => d.HasValue
+                ? DateTime.SpecifyKind(d.Value, DateTimeKind.Utc) : null);
         }
     }
 }

@@ -28,8 +28,7 @@
 
         <div>
           <strong>Last Active:</strong>
-          <!-- TODO: Using UTC timezone as a temporary solution -->
-          <p>{{member.lastActive + 'Z' | timeago}}</p>
+          <p>{{member.lastActive | timeago}}</p>
         </div>
 
         <div>

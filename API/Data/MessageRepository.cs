@@ -87,8 +87,8 @@ namespace API.Data
             {
                 foreach (var message in unreadMessages)
                 {
-                    // TODO: Unread messages that have this field updated for the
-                    // first time will have a 'Z' when mapped to the response, like:
+                    // Messages that have this field updated for the first
+                    // time will have a 'Z' when mapped to the response, like:
                     // "dateRead": "2023-09-12T21:41:34.353616Z
                     message.DateRead = DateTime.UtcNow;
                 }
