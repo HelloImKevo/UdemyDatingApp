@@ -53,5 +53,19 @@ namespace API.SignalR
 
             return Task.FromResult(onlineUsers);
         }
+
+        public static Task<List<string>> GetConnectionsForUser(string username)
+        {
+            List<string> connectionIds;
+
+            // This is not a scalable, production-worthy solution.
+            // Ideally we would use Redis.
+            lock (OnlineUsers)
+            {
+                connectionIds = OnlineUsers.GetValueOrDefault(username);
+            }
+
+            return Task.FromResult(connectionIds);
+        }
     }
 }
