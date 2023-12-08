@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, take } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { User } from '../_models/user';
+import { Group } from '../_models/group';
 
 /**
  * Created with command:
@@ -38,6 +39,24 @@ export class MessageService {
 
     this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
+    });
+
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      // If a user joins our group, the message thread is not going to
+      // be updated with the fact that they've read the message.
+      if (group.connections.some(x => x.username === otherUsername)) {
+        this.messageThread$.pipe(take(1)).subscribe({
+          next: messages => {
+            messages.forEach(message => {
+              if (!message.dateRead) {
+                message.dateRead = new Date(Date.now())
+              }
+            });
+
+            this.messageThreadSource.next([...messages]);
+          }
+        });
+      }
     });
 
     this.hubConnection.on('NewMessage', message => {

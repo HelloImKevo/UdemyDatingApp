@@ -45,6 +45,8 @@ namespace API.Interfaces
         // Get a SignalR hub Connection instance.
         Task<Connection> GetConnection(string connectionId);
 
+        Task<Group> GetGroupForConnection(string connectionId);
+
         // Remove a SignalR message group connection.
         void RemoveConnection(Connection connection);
 
