@@ -88,6 +88,30 @@ Now both services (API server and client app) will be running. Open this URL in 
 https://localhost:4200/
 
 
+## Troubleshooting Dotnet Runtime
+
+If you encounter this error:
+```
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
+```
+
+You can try running:
+```
+lsof -i:5001
+```
+
+Example output:
+```
+Google    36572 john   70u  IPv6 0x1223c1a0ae0e2ced  0t0  TCP localhost:60565->localhost:commplex-link (ESTABLISHED)
+API       96825 john  244u  IPv4 0x1223c1aa43f9eee5  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  245u  IPv6 0x1223c1a0ae0e3bed  0t0  TCP localhost:commplex-link (LISTEN)
+API       96825 john  256u  IPv6 0x1223c1a0ae0c436d  0t0  TCP localhost:commplex-link->localhost:60565 (ESTABLISHED)
+```
+
+Then run `kill -9 <pid>` to manually kill the leftover "API" processes. In the above example, it 
+should be: `kill -9 96825`.
+
+
 ## Visual Studio Code Tips and Tricks
 
 Open Settings, search for "exclude", under "Files: Exclude", click on **Add Pattern**. Type
@@ -133,30 +157,6 @@ List currently installed tools:
 ```shell
 dotnet tool list -g
 ```
-
-
-## Troubleshooting Dotnet Runtime
-
-If you encounter this error:
-```
-System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
-```
-
-You can try running:
-```
-lsof -i:5001
-```
-
-Example output:
-```
-Google    36572 john   70u  IPv6 0x1223c1a0ae0e2ced  0t0  TCP localhost:60565->localhost:commplex-link (ESTABLISHED)
-API       96825 john  244u  IPv4 0x1223c1aa43f9eee5  0t0  TCP localhost:commplex-link (LISTEN)
-API       96825 john  245u  IPv6 0x1223c1a0ae0e3bed  0t0  TCP localhost:commplex-link (LISTEN)
-API       96825 john  256u  IPv6 0x1223c1a0ae0c436d  0t0  TCP localhost:commplex-link->localhost:60565 (ESTABLISHED)
-```
-
-Then run `kill -9 <pid>` to manually kill the leftover "API" processes. In the above example, it 
-should be: `kill -9 96825`.
 
 
 ## A Walking Skeleton

@@ -92,8 +92,6 @@ namespace API.Data
                     // "dateRead": "2023-09-12T21:41:34.353616Z
                     message.DateRead = DateTime.UtcNow;
                 }
-
-                await _context.SaveChangesAsync();
             }
 
             return _mapper.Map<IEnumerable<MessageDto>>(messages);
