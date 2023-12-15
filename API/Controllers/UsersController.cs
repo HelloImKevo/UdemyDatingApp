@@ -34,14 +34,14 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var currentUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
-            userParams.CurrentUsername = currentUser.UserName;
+            var gender = await _uow.UserRepository.GetUserGender(User.GetUsername());
+            userParams.CurrentUsername = User.GetUsername();
 
             // Need to iron out some bugs with Age selection before restoring this functionality.
-            // if (string.IsNullOrEmpty(userParams.Gender))
-            // {
-            //     userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
-            // }
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = gender == "male" ? "female" : "male";
+            }
 
             var users = await _uow.UserRepository.GetMembersAsync(userParams);
 
