@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmDialogComponent } from '../modals/confirm-dialog/confirm-dialog.component';
+import { Observable, map } from 'rxjs';
 
 /**
  * Created with command:
@@ -23,7 +24,7 @@ export class ConfirmService {
     message = 'Are you sure you want to do this?',
     btnOkText = 'OK',
     btnCancelText = 'Cancel'
-  ) {
+  ): Observable<boolean> {
     const config = {
       initialState: {
         title,
@@ -33,5 +34,10 @@ export class ConfirmService {
       }
     };
     this.bsModelRef = this.modalService.show(ConfirmDialogComponent, config);
+    return this.bsModelRef.onHidden!.pipe(
+      map(() => {
+        return this.bsModelRef!.content!.result
+      })
+    );
   }
 }
