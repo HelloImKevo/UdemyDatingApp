@@ -1603,3 +1603,26 @@ cd client/
 npm install @microsoft/signalr
 npm audit fix
 ```
+
+
+# Section 18: Unit of work pattern and finishing touches
+
+## Unit of work pattern and finishing touches: Learning Goals
+
+Implement the Unit of work pattern and gain an understanding of the following:
+1. The Unit of Work pattern
+2. Optimizing queries to the DB
+3. Adding a confirm dialog service
+4. Finishing touches
+
+### What is Unit of Work?
+Described as: Maintains a list of objects affected by a business transaction
+and coordinates the writing of changes.
+
+Right now, we have Controllers and Repositories, and we use `SaveChanges()`.
+The repositories are injected into the Controller, and each one needs its
+own instance of the `DataContext` as well. This could result in data
+inconsistency, if one `SaveChanges()` works, and the other does not.
+
+The Unit of Work injects the `DataContext` and passes that down as a parameter
+to the different Repositories.

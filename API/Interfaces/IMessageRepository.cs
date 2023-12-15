@@ -37,8 +37,6 @@ namespace API.Interfaces
         //      and Date/Time information.
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName);
 
-        Task<bool> SaveAllAsync();
-
         // Add a SignalR message group to our hub.
         void AddGroup(Group group);
 
