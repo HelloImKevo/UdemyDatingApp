@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmDialogComponent } from '../modals/confirm-dialog/confirm-dialog.component';
+
+/**
+ * Created with command:
+ * ```
+ * ng g service _services/confirm --skip-tests
+ * ```
+ * 
+ * Used for our 'You have unsaved changes' confirmation prompt.
+ */
+@Injectable({
+  providedIn: 'root'
+})
+export class ConfirmService {
+  bsModelRef?: BsModalRef<ConfirmDialogComponent>;
+
+  constructor(private modalService: BsModalService) { }
+
+  confirm(
+    title = 'Confirmation',
+    message = 'Are you sure you want to do this?',
+    btnOkText = 'OK',
+    btnCancelText = 'Cancel'
+  ) {
+    const config = {
+      initialState: {
+        title,
+        message,
+        btnOkText,
+        btnCancelText
+      }
+    };
+    this.bsModelRef = this.modalService.show(ConfirmDialogComponent, config);
+  }
+}
