@@ -1,6 +1,9 @@
 # UdemyDatingApp
 Udemy course Dating App built with ASPNET Core and Angular infrastructure.
 
+Full course solution designed by the instructor available here:  
+https://github.com/TryCatchLearn/DatingApp
+
 
 # Dependencies
 Download and install .NET:  
