@@ -1626,3 +1626,32 @@ inconsistency, if one `SaveChanges()` works, and the other does not.
 
 The Unit of Work injects the `DataContext` and passes that down as a parameter
 to the different Repositories.
+
+
+# Bonus: Photo Management Challenge
+
+## Requirements
+1. Any photos a user uploads should be un-approved.
+2. Only admins or moderators can approve photos.
+3. No other user should be able to see unapproved photos.
+4. The user that uploaded the photo should be able to see the photo,
+   but it should be clearly identified as "awaiting approval".
+5. When a user uploads their first photo, this should not be set as their
+   "Main Photo" (because it must first be approved).
+6. When an Admin or a Moderator approves a photo for a user that does not
+   have a Main Photo, then this action should set the photo to their Main.
+
+## Guidance
+1. Add `isApproved` to the Photo entity.
+2. Add a `DbSet` for the Photos so we can query directly.
+3. Update the `PhotoDto`.
+4. Update the `Seed.cs` Users so that the initial photo is approved for
+   seeded users.
+5. Drop the database and add a new migration.
+6. Add a Query filter to only return approved photos.
+7. Ignore the Query filter for the current user (`GetMemberAsync`) so the
+   current user still sees their unapproved photos.
+8. Add a `PhotoForApprovalDto` with the Photo ID, the URL, the Username
+   and the `isApproved` status.
+
+... Further details are included in the course PDF.
