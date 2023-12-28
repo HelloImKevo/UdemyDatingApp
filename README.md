@@ -1683,3 +1683,15 @@ Actually publish the app and gain an understanding of how to:
 6. Capacity / scalability
 7. Seed data - admin and moderator users?
 8. Fake API delays! (these need to be removed)
+
+### Publishing preparation
+Update `client/angular.json` "outputPath" to: `../API/wwwroot`.  
+Run:
+```
+ng build
+```
+Update "budgets" to:
+```
+"maximumWarning": "1mb"
+"maximumError": "2mb"
+```

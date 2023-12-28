@@ -29,6 +29,10 @@ app.UseCors(builder => builder
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Publishing preparation.
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
