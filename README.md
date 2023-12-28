@@ -1658,3 +1658,28 @@ to the different Repositories.
    and the `isApproved` status.
 
 ... Further details are included in the course PDF.
+
+
+# Section 19: Publishing
+
+## Publishing: Learning Goals
+
+Actually publish the app and gain an understanding of how to:
+1. Prepare the app for publication
+2. What to consider before publishing
+3. Switching DBs
+4. Serving static content from the API server.
+5. Publishing to Heroku (Free!) using PostgreSQL
+6. Integrating Heroku to GitHub
+7. Using git branches
+
+### What to consider when publishing
+1. Environment variables - Cloudinary settings, Token key, etc.
+2. Localhost
+3. CORS (Cross-Origin Resource Sharing) - if hosting the client app in
+   different domain
+4. Database - goodbye SQLite!
+5. Cost - what is the budget for this?
+6. Capacity / scalability
+7. Seed data - admin and moderator users?
+8. Fake API delays! (these need to be removed)
