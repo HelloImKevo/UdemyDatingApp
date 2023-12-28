@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Created with command:
@@ -15,6 +16,7 @@ import { AccountService } from '../_services/account.service';
 export class HomeComponent implements OnInit {
   registerMode = false;
   users: any;
+  isDebugBuild: boolean = !environment.production
 
   constructor(private accountService: AccountService) { }
 

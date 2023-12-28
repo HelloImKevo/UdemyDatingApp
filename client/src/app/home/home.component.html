@@ -15,4 +15,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Debug footer - hidden for Production builds -->
+  <div *ngIf="isDebugBuild" style="text-align:center; left: 0px; right: 0px; position: absolute; bottom: 0px; width:100%;">
+    <h5 class="text-danger"><strong>DEBUG BUILD</strong></h5>
+  </div>
 </div>
