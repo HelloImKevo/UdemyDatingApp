@@ -5,8 +5,9 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable, delay, finalize } from 'rxjs';
+import { Observable, delay, finalize, identity } from 'rxjs';
 import { BusyService } from '../_services/busy.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Created with command:
@@ -23,7 +24,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.busyService.busy();
 
     return next.handle(request).pipe(
-      delay(BusyService.LOADING_PROGRESS_INTERCEPTOR_MILLIS),
+      (environment.production ? identity : delay(BusyService.LOADING_PROGRESS_INTERCEPTOR_MILLIS)),
       finalize(() => {
         this.busyService.idle()
       })
