@@ -1,4 +1,6 @@
-![dotnet-version](https://img.shields.io/badge/.NET-7-purple) ![angular-version](https://img.shields.io/badge/Angular-14.3-red)
+![dotnet-version](https://img.shields.io/badge/.NET-7-purple)
+![angular-version](https://img.shields.io/badge/Angular-14.3-red)
+[![CI workflow](https://img.shields.io/github/actions/workflow/status/HelloImKevo/UdemyDatingApp/docker-push.yml?branch=master&label=ci&logo=github)](https://github.com/HelloImKevo/UdemyDatingApp/actions?workflow=docker-push)
 
 # UdemyDatingApp
 Udemy course Dating App built with ASPNET Core and Angular infrastructure.
@@ -1923,3 +1925,13 @@ Error: failed to fetch an image or build from source: image must be amd64
 5. Create a 'New Repository Secret' with name: `DOCKERHUB_TOKEN`.
    This will require an Access Token to be generated in Docker Hub, under
    My Account > Security. See: https://docs.docker.com/security/for-developers/access-tokens/
+
+Log into GitHub, go to Actions, select the `docker-push` action, and Run the
+Workflow. Hopefully it succeeds!
+
+Finally, we can run `fly deploy`. Since I haven't given my credit card, I get 
+the error:
+```
+Error: input:3: createRelease We need your payment information to continue!
+Add a credit card or buy credit: https://fly.io/dashboard/full-name/billing
+```
