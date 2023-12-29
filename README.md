@@ -1795,6 +1795,7 @@ These entries need to be added to the git-ignored `appsettings.json` file:
 
 Build the Docker image by running this from our `API/` folder:
 ```
+cd API/
 docker build -t <docker_username>/datingapp .
 ```
 
@@ -1890,4 +1891,24 @@ TokenKey                        fc461f13437f184b        6m56s ago
 Test the connection like:
 ```
 fly ping udemydatingapp-db.internal
+```
+
+## Create the config files for fly.io
+After updating the `ApplicationServiceExtensions.cs` and `Program.cs` we need
+to rebuild and push an update Docker image:
+```
+cd API/
+docker build -t <docker_username>/datingapp .
+docker push <docker_username>/datingapp:latest
+```
+
+And deploy our app to fly.io:
+```
+fly deploy
+```
+
+Unfortunately we'll run into this error with the Apple Silicon ARM Chip:
+```
+Error: failed to fetch an image or build from source: image must be amd64 
+  architecture for linux os, found arm64 linux
 ```
