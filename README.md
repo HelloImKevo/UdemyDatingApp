@@ -1780,3 +1780,34 @@ fail: Program[0]
        Npgsql.EnableLegacyTimestampBehavior AppContext switch to enable legacy 
        behavior.
 ```
+
+## Dockerizing our app to deploy to fly.io
+Go to the Extensions tab (looks like 4 Tetris blocks), and search
+for "Docker". Install the **Docker** by Microsoft extension.  
+
+These entries need to be added to the git-ignored `appsettings.json` file:
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=host.docker.internal; Port=5432; User Id=postgres; Password=postgrespw; Database=datingapp"
+},
+"TokenKey": "super secret unguessable key"
+```
+
+Build the Docker image by running this from our `API/` folder:
+```
+docker build -t <docker_username>/datingapp .
+```
+
+To run the Docker image:
+```
+docker run --rm -it -p 8080:80 docker.io/<docker_username>/datingapp:latest
+```
+
+And then in a browser, go to: http://localhost:8080/  
+
+The Docker image can be pushed to docker.io with:
+```
+docker push <docker_username>/datingapp:latest
+```
+
+If you have trouble authenticating, you can use `docker login`.
