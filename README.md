@@ -1914,3 +1914,12 @@ Unfortunately we'll run into this error with the Apple Silicon ARM Chip:
 Error: failed to fetch an image or build from source: image must be amd64 
   architecture for linux os, found arm64 linux
 ```
+
+## Using github actions
+1. Copy the template from https://github.com/docker/build-push-action
+2. Paste that template into a new `.github/workflows/docker-push.yml` file.
+3. Go to the GitHub repository **Settings > Secrets and variables > Actions**.
+4. Create a 'New Repository Secret' with name: `DOCKERHUB_USERNAME`.
+5. Create a 'New Repository Secret' with name: `DOCKERHUB_TOKEN`.
+   This will require an Access Token to be generated in Docker Hub, under
+   My Account > Security. See: https://docs.docker.com/security/for-developers/access-tokens/
