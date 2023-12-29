@@ -1695,3 +1695,88 @@ Update "budgets" to:
 "maximumWarning": "1mb"
 "maximumError": "2mb"
 ```
+
+### Docker download
+Link to Docker for Desktop:  
+https://www.docker.com/products/docker-desktop/
+
+### PostgreSQL
+Powerful, open source object-relational database system:  
+https://www.postgresql.org/
+
+## Migrating Entity Framework from SQLite to PostgreSQL
+Run:
+```
+docker run --name postgres -e POSTGRES_PASSWORD=postgrespw -p 5432:5432 -d postgres:latest
+```
+
+In VS Code, go to the Extensions tab (looks like 4 Tetris blocks), and search
+for "Postgres".  
+
+Install the **PostgreSQL** by Chris Kolkman extension.  
+
+Then, open the **Command Palette** (SHIFT + CMD + P), and search for "NuGet"
+and click on the option that reads "NuGet: Open NuGet Gallery".
+
+Look for "Npgsql.EntityFrameworkCore.PostgreSQL" by Shay Rojansky, Austin Drenski,
+Yoh Deadfall, and check the `API.csproj` checkbox, and install the **7.0.0**
+version.
+
+The `API.csproj` file should now have a new entry like this:
+```xml
+<ItemGroup>
+  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
+</ItemGroup>
+```
+
+Then drop the SQLite database by running:
+```
+cd API/
+dotnet ef database drop
+```
+
+Then update our `appsettings.Development.json` file from:
+```
+"DefaultConnection": "Data source=datingapp.db"
+```
+to:
+```
+"DefaultConnection": "Server=localhost; Port=5432; User Id=postgres; Password=postgrespw; Database=datingapp"
+```
+
+Then delete the `Migrations/` folder (inside of `API/Data/`), then run:
+```
+dotnet ef migrations add PostgresInitial -o Data/Migrations
+```
+
+If we run `dotnet run`, we'll get an error like this:
+```
+ at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRawAsync(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters, CancellationToken cancellationToken)
+ at Program.<Main>$(String[] args) in /Users/schanzke/GitProjects/UdemyDatingApp/API/Program.cs:line 56
+Exception data:
+  Severity: ERROR
+  SqlState: 42601
+  MessageText: syntax error at or near "["
+  Position: 13
+  File: scan.l
+  Line: 1241
+  Routine: scanner_yyerror
+```
+
+Because PostgreSQL does not support the `[Connections]` SQLite syntax (this is
+fixed as part of this commit).
+
+We'll also get this error (this is addressed by doing UTC conversions in
+the `Seed.cs` class):
+```
+fail: Program[0]
+      An error occurred during migration
+      Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while 
+      saving the entity changes. See the inner exception for details.
+       ---> System.InvalidCastException: Cannot write DateTime with 
+       Kind=Unspecified to PostgreSQL type 'timestamp with time zone', 
+       only UTC is supported. Note that it's not possible to mix DateTimes 
+       with different Kinds in an array/range. See the 
+       Npgsql.EnableLegacyTimestampBehavior AppContext switch to enable legacy 
+       behavior.
+```
