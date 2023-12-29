@@ -1,3 +1,5 @@
+![dotnet-version](https://img.shields.io/badge/.NET-7-purple) ![angular-version](https://img.shields.io/badge/Angular-14.3-red)
+
 # UdemyDatingApp
 Udemy course Dating App built with ASPNET Core and Angular infrastructure.
 
