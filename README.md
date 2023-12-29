@@ -1811,3 +1811,83 @@ docker push <docker_username>/datingapp:latest
 ```
 
 If you have trouble authenticating, you can use `docker login`.
+
+## Deploy to fly.io
+See website: https://fly.io/  
+
+Install the fly.io command line tools:
+```
+brew install flyctl
+```
+
+Then authenticate:
+```
+flyctl auth signup
+```
+
+Launch our Docker image to fly.io using:
+```
+fly launch --image docker-username/datingapp:latest
+```
+
+The configuration should look something like:
+```
+Using image docker-username/datingapp:latest
+Creating app in /Users/username/GitProjects/UdemyDatingApp
+We're about to launch your app on Fly.io. Here's what you're getting:
+
+Organization: Full Name                (fly launch defaults to the personal org)
+Name:         udemydatingapp           (derived from your directory name)
+Region:       Ashburn, Virginia (US)   (this is the fastest region for you)
+App Machines: shared-cpu-1x, 256MB RAM (most apps need about 1GB of RAM)
+Postgres:     Fly Postgres
+Redis:        <none>                   (not requested)
+
+Hostname: https://udemydatingapp-db.fly.dev/
+```
+
+Note: For this Udemy course, I was blocked from deployment with a 403: Forbidden
+error (probably ZScaler) like:
+```
+Failed attaching udemydatingapp to the Postgres cluster udemydatingapp-db: 
+  can't build tunnel for personal: websocket: failed to WebSocket dial: 
+  expected handshake response status code 101 but got 403.
+  Try attaching manually with 'fly postgres attach --app udemydatingapp udemydatingapp-db'
+Error: can't build tunnel for personal: websocket: failed to WebSocket dial: 
+  expected handshake response status code 101 but got 403
+Error: failed to fetch an image or build from source: image must be amd64 
+  architecture for linux os, found arm64 linux
+```
+
+I had to run this to fix the issue:
+```
+fly wireguard websockets disable
+fly wireguard reset
+fly postgres attach --app udemydatingapp udemydatingapp-db
+```
+
+Set the Cloudinary API Secret Key:
+```
+fly secrets set CloudinarySettings__ApiSecret=secret_apikey06PgY
+```
+
+Generate a strong password using a tool like:
+https://delinea.com/resources/password-generator-it-tool
+
+And set the Token Key:
+```
+fly secrets set TokenKey=somestrongpasswordycPTHXIwZfpbJI
+```
+
+List the fly secrets by running `fly secrets list`, and see:
+```
+NAME                            DIGEST                  CREATED AT 
+CloudinarySettings__ApiSecret   708c5f0c74b2f804        10m25s ago
+DATABASE_URL                    b82821dc05bcc987        9s ago    
+TokenKey                        fc461f13437f184b        6m56s ago 
+```
+
+Test the connection like:
+```
+fly ping udemydatingapp-db.internal
+```
