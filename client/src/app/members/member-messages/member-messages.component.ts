@@ -20,6 +20,7 @@ export class MemberMessagesComponent implements OnInit {
   // Input decorator must be specified in HTML. Ex: [username]="member.userName"
   @Input() username?: string;
   messageContent = '';
+  loading = false;
 
   constructor(public messageService: MessageService) { }
 
@@ -29,8 +30,9 @@ export class MemberMessagesComponent implements OnInit {
   sendMessage(): void {
     if (!this.username) return;
 
+    this.loading = true;
     this.messageService.sendMessage(this.username, this.messageContent).then(() => {
       this.messageForm?.reset();
-    });
+    }).finally(() => this.loading = false);
   }
 }
