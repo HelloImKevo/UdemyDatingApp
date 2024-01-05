@@ -1939,6 +1939,10 @@ Error: input:3: createRelease We need your payment information to continue!
 Add a credit card or buy credit: https://fly.io/dashboard/full-name/billing
 ```
 
+### Continuous Deployment with Fly.io and GitHub Actions
+
+https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+
 Some fly.io tips and tricks:
 ```
 # Proxies connections to a Fly Machine through a WireGuard tunnel. By default, 
