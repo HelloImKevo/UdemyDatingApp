@@ -1958,3 +1958,106 @@ fly proxy 6543:5432 -a datingapp-db
 # the --region/-r flag.
 fly logs -a datingapp
 ```
+
+# Publishing to Azure: An Introduction
+First of all we want to make sure our app runs without issue on Sql Server 2019. 
+For windows you can just install this directly, but for Mac/Linux then you can 
+get a docker image of SQL as Microsoft now has a Linux version of SQL. If you 
+are on Windows but do not have SQL installed then so long as you have Docker 
+then you can go ahead and do the same as me.
+
+## Setting up Sql Server for Development
+Since SQL is a bit of a big install I'm going to download the files to my 
+computer by running the following command:
+```shell
+docker pull microsoft/mssql-server-linux:latest
+```
+
+SQL Server requires a bit more memory than other DBs so I am also going to 
+increase the memory for Docker in the preferences to 4GB.
+
+Then we can run the following command to run the SQL Server:
+```shell
+docker run -d --name sqldemo -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Password1!' -p 1433:1433 microsoft/mssql-server-linux
+```
+
+Sql SA account needs a strong password, and I am not saying the above is (!) 
+but it does meet the complexity requirements.
+
+## Switching to use SQL Server for dev.
+I'm going to create a new branch so that I do not interfere with the `master` 
+branch. Run the following:
+```shell
+git checkout -b AzurePublish
+```
+
+Add the following Sql Server provider via Nuget: **Microsoft.EntityFrameworkCore.SqlServer**  
+
+You can remove the package for Sqlite and Postgres if you still have them 
+installed - we only need SqlServer for this Ensure you pick the same version 
+as your runtime.
+
+Open the `appsettings.development.json` and change the default connection 
+string to the following:
+```json
+"ConnectionStrings" : {
+  "DefaultConnection": "Server=localhost; User Id=sa; Password=Password1!; Database=datingappdb"
+}
+```
+
+Update the `ApplicationServiceExtensions` to use this:
+```csharp
+services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+});
+```
+
+Delete the migrations folder from Data/Migrations and create a new migration 
+for the Sql Server provider:
+```shell
+dotnet ef migrations add SqlInitial -o Data/Migrations
+```
+
+Check the migration and ensure you can see Sql server specific annotations 
+in there:
+```csharp
+migrationBuilder.CreateTable(
+    name: "AspNetRoles",
+    columns: table => new
+    {
+        Id = table.Column<int>(type: "int", nullable: false)
+            .Annotation("SqlServer:Identity", "1", "1"),
+        Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+        NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+        ConcurrencyStamp = table.Column<string>(type: "nvarchar(256)", nullable: true)
+    },
+```
+
+Restart the app and make sure everything works! ... Well, it doesn’t because 
+Sql server is special. So we need to add an extra bit of configuration here to 
+the `DataContext.cs` class and make sure one of the `UserLike` specifies no 
+action for the delete behaviour:
+```csharp
+builder.Entity<UserLike>()
+    .HasOne(s => s.SourceUser)
+    .WithMany(l => l.LikedUsers)
+    .HasForeignKey(s => s.SourceUserId)
+    .OnDelete(DeleteBehavior.NoAction);
+builder.Entity<UserLike>()
+    .HasOne(s => s.LikedUser)
+    .WithMany(l => l.LikedByUsers)
+    .HasForeignKey(s => s.LikedUserId)
+    .OnDelete(DeleteBehavior.Cascade);
+```
+
+Delete the migrations folder and recreate the migration:
+```shell
+dotnet ef migrations add SqlInitial -o Data/Migrations
+```
+
+Restart the app again and make sure we have success!
+
+This time everything goes smoothly. Restart the angular app and ensure we 
+can operate the application without any errors on `localhost 4200`. It should 
+work fine.
