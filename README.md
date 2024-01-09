@@ -62,9 +62,21 @@ Credential Manager - this will be significantly more complex to configure.
 
 # Screenshot References
 
-![Dashboard](Screenshots/app-01.png)
+| Matches |
+| :---: |
+| ![Matches](Screenshots/app-01.png) |
 
-![Edit Profile](Screenshots/app-06.png)
+| Edit Profile |
+| :---: |
+| ![Edit Profile](Screenshots/app-06.png) |
+
+| Online Notifications |
+| :---: |
+| ![Online Notifications](Screenshots/app-10.png) |
+
+| User Message Thread |
+| :---: |
+| ![User Message Thread](Screenshots/app-09.png) |
 
 
 # Debugging with VS Code
@@ -74,6 +86,8 @@ Credential Manager - this will be significantly more complex to configure.
 ![Debugging 02](Screenshots/debug-02.png)
 
 ![Debugging 03](Screenshots/debug-03.png)
+
+![Debugging 04](Screenshots/debug-04.png)
 
 
 # Helpful Quick References
@@ -1687,6 +1701,21 @@ Actually publish the app and gain an understanding of how to:
 6. Capacity / scalability
 7. Seed data - admin and moderator users?
 8. Fake API delays! (these need to be removed)
+
+
+### Docker + Fly.io Screenshots
+
+| Docker Dashboard |
+| :---: |
+| ![Docker Dashboard](Screenshots/app-12.png) |
+
+| Docker GitHub CI Action |
+| :---: |
+| ![Docker GitHub CI Action](Screenshots/app-13.png) |
+
+| Fly.io Web Dashboard |
+| :---: |
+| ![Fly.io Web Dashboard](Screenshots/app-14.png) |
 
 ### Publishing preparation
 Update `client/angular.json` "outputPath" to: `../API/wwwroot`.  
